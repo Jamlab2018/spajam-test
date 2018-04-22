@@ -6,7 +6,7 @@ public class TestScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+        Debug.Log("デバッグ用ですよ！！！！！！");
 	}
 	
 	// Update is called once per frame
