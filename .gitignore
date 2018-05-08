@@ -1,6 +1,13 @@
 Library
 Temp
-*.pidb
+*.csproj
 *.unityproj
 *.sln
+*.suo
+*.tmp
+*.user
 *.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
