@@ -4,7 +4,4 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/KanbaraTest.unity
-    guid: 0842daa4ecf496b40811ff3a5dd753e1
+  m_Scenes: []
