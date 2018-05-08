@@ -11,4 +11,4 @@ Temp
 *.booproj
 *.svd
 *.pdb
-Jamlab/.vs/Jamlab/v14/.suo
+*.suo
