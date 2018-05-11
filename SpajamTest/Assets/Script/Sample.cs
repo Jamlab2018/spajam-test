@@ -5,13 +5,35 @@ using UnityEngine;
 public class Sample : MonoBehaviour {
     
 	void Start () {
-        // エディタで更新、挿入した場合はいかに保存される
-        // C: \Users\[ユーザー名]\AppData\LocalLow\[player SettingのCompanyName]\
-        DataBaseControle.jsonInsert(2, "ざ・ろっく");
-        //DataBaseControle.jsonSelect(2);
-	}
-	
-	void Update () {
 		
+		// データを全て取得
+		//List<JsonNode> dataset =  DataControl.getAllData ();
+
+		// jsonデータを1つ取得
+		//string json = DataControl.getJson(0);
+
+		// jsonをデコードする
+		//JsonNode jsnode = DataControl.jsonDecode (json);
+
+		// データを保存(第二引数に指定があればUpdate)
+		//DataControl.Save(json);
+
+		// 指定したデータを削除
+		//DataControl.delOneData(0);
+
+		// データを全削除
+		//DataControl.delAllData ();
+
+		/* JsonNode 使い方
+		JsonNode json = JsonNode.Parse(jsonAsset.text);
+
+		// Get<T> で型指定して取得
+		string result = json["result"].Get<string>();
+
+		// IDictionary or IListは繋げられます
+		string kuroName = json["response"]["users"][0]["name"].Get<string>();
+
+		Debug.Log(kuroName);
+		*/
 	}
 }
