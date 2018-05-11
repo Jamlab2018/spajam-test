@@ -5,7 +5,8 @@ using UnityEngine;
 public class listViewNode : MonoBehaviour {
 
     ScrollController owner;
-    shopDetailInfo info;
+    photoDetailInfo info;
+    bool deleteFlg;
 
     //public DetailPictInfo info;
 
@@ -26,23 +27,33 @@ public class listViewNode : MonoBehaviour {
     }
 
     //お店の情報をセットする。
-    public void setDetailInfo(shopDetailInfo info)
+    public void setDetailInfo(photoDetailInfo info)
     {
         this.info = info;
         //各種情報をセットする。
         //info.Shopid = 10;
     }
 
+    public void setDeleteFlg(bool flg)
+    {
+        this.deleteFlg = flg;
+    }
+
+    public bool getDeleteFlg()
+    {
+        return this.deleteFlg;
+    }
+
     //お店の詳細情報を取得する
 
-    public shopDetailInfo getDetailInfo()
+    public photoDetailInfo getDetailInfo()
     {
         return this.info;
     }
 
     public void touchNode()
     {
-        Debug.Log(info.Shopid);
+        Debug.Log(info.photoID);
         owner.touchNode(this);
     }
 }
