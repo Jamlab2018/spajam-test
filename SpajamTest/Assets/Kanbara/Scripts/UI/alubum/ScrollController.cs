@@ -4,6 +4,7 @@ using System.Collections;
 
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 
 public class ScrollController : MonoBehaviour
@@ -24,6 +25,7 @@ public class ScrollController : MonoBehaviour
     GameObject photoDetailPanel;
     GameObject photoButton;
     GameObject deleteButton;
+    GameObject cancelButton;
 
     List<listViewNode> listViewNodes;
 
@@ -38,6 +40,8 @@ public class ScrollController : MonoBehaviour
         listViewNodes = new List<listViewNode>();
         photoButton = GameObject.Find("photoButton");
         deleteButton = GameObject.Find("deleteButton");
+        cancelButton = GameObject.Find("cancelButton");
+        cancelButton.SetActive(false);
 
         //スクロールビューを展開後にデータベースの問い合わせを行う。
         //完了次第、リストの作成を行う予定。
@@ -96,15 +100,26 @@ public class ScrollController : MonoBehaviour
 
     public void launchPhotoMode()
     {
+        //SceneUtility.moveScene();
         //カメラモードへ遷移を行う。
     }
+
+
 
     //削除モードへの遷移。（メニューボタンをタップしたときに起動。）
     public void changeDeleteMode()
     {
         this.mode = DELETE_MODE;
         photoButton.SetActive(false);
+        cancelButton.SetActive(true);
         menuList.SetActive(false);
+    }
+
+    public void cancelDeleteMode()
+    {
+        this.mode = NORMAL_MODE;
+        photoButton.SetActive(true);
+        cancelButton.SetActive(false);
     }
 
     //データのデリート処理を行う
@@ -135,6 +150,8 @@ public class ScrollController : MonoBehaviour
 
         //終了処理
         photoButton.SetActive(true);
+        cancelButton.SetActive(false);
+        this.mode = NORMAL_MODE;
 
     }
 
@@ -149,6 +166,7 @@ public class ScrollController : MonoBehaviour
         */
         //GameObject menuPanel = GameObject.Find("AlubummenuPanel");
         menuList.SetActive(!menuList.active);
+
 
     }
 
@@ -178,6 +196,7 @@ public class ScrollController : MonoBehaviour
     //リストから詳細画面を開く
     private void openPictureDetailPanel(photoDetailInfo info) 
     {
+        SceneUtility.moveScene("photoAlubum","photoDetail",info.photoID);
         //photoDetailPanel.GetComponent<photoDetailPanel>().launchDetailView(info);
         //他シーンに遷移する処理を作成する
     }

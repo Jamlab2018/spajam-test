@@ -6,5 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Kanbara/Scenes/KanbaraTest.unity
+    path: Assets/Kanbara/Scenes/photoAlubum.unity
     guid: 0842daa4ecf496b40811ff3a5dd753e1
+  - enabled: 1
+    path: Assets/Kanbara/Scenes/photoDetail.unity
+    guid: b49c284ad10f1d04f9f7c9c237e76a32

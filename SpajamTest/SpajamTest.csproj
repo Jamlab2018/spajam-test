@@ -291,11 +291,11 @@
     <Compile Include="Assets\DataScript\JsonReadWeb.cs" />
     <Compile Include="Assets\DataScript\MiniJson.cs" />
     <Compile Include="Assets\DataScript\Sample.cs" />
-    <Compile Include="Assets\Kanbara\Scripts\UI\deleteButton.cs" />
-    <Compile Include="Assets\Kanbara\Scripts\UI\listViewNode.cs" />
-    <Compile Include="Assets\Kanbara\Scripts\UI\photoDetailInfo.cs" />
-    <Compile Include="Assets\Kanbara\Scripts\UI\photoDetailPanel.cs" />
-    <Compile Include="Assets\Kanbara\Scripts\UI\ScrollController.cs" />
+    <Compile Include="Assets\Kanbara\Scripts\SceneUtility.cs" />
+    <Compile Include="Assets\Kanbara\Scripts\UI\alubum\listViewNode.cs" />
+    <Compile Include="Assets\Kanbara\Scripts\UI\alubum\photoDetailInfo.cs" />
+    <Compile Include="Assets\Kanbara\Scripts\UI\alubum\photoDetailPanel.cs" />
+    <Compile Include="Assets\Kanbara\Scripts\UI\alubum\ScrollController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
