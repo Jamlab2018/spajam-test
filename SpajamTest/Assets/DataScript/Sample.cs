@@ -5,10 +5,7 @@ using System.Text;
 using UnityEngine;
 
 public class Sample : MonoBehaviour {
-
-    public string url = "http://nippo.oilstand.net/test/res2.php";
-    public string json = "";
-
+	
     void Start()
     {
 
@@ -59,32 +56,6 @@ public class Sample : MonoBehaviour {
             }
         }
         */
-
-        StartCoroutine(SetUserTest());
     }
     
-
-    IEnumerator SetUserTest()
-    {
-        string fileName = "up_data.jpg";
-        string filePath = Application.dataPath + "/" + fileName;
-        // 画像ファイルをbyte配列に格納
-        byte[] img = File.ReadAllBytes(filePath);
-        
-
-        // formにバイナリデータを追加
-        WWWForm form = new WWWForm();
-        form.AddBinaryData("file", img, fileName, "image/jpeg");
-
-        using (WWW www = new WWW(url, form))
-        {
-            yield return www;
-            if (!string.IsNullOrEmpty(www.error))
-            {
-                Debug.Log("error:" + www.error);
-                yield break;
-            }
-            json = www.text;
-        }
-    }
 }
