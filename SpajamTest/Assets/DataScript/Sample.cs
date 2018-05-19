@@ -1,33 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using UnityEngine;
 
 public class Sample : MonoBehaviour {
-    
-	void Start () {
-		
-		// データを全て取得
-		//List<JsonNode> dataset =  DataControl.getAllData ();
+	
+    void Start()
+    {
 
-		// jsonデータを1つ取得
-		//string json = DataControl.getJson(0);
+        // データを全て取得
+        //List<JsonNode> dataset =  DataControl.getAllData ();
 
-		// jsonをデコードする
-		//JsonNode jsnode = DataControl.jsonDecode (json);
+        // jsonデータを1つ取得
+        //string json = DataControl.getJson(0);
 
-		// jsonに値を追加
-		// string json = DataControl.jsonEncodeById(0,"review",3);
+        // jsonをデコードする
+        //JsonNode jsnode = DataControl.jsonDecode (json);
 
-		// データを保存(第二引数に指定があればUpdate)
-		//DataControl.Save(json);
+        // jsonに値を追加
+        // string json = DataControl.jsonEncodeById(0,"review",3);
 
-		// 指定したデータを削除
-		//DataControl.delOneData(0);
+        // データを保存(第二引数に指定があればUpdate)
+        //DataControl.Save(jsonString);
 
-		// データを全削除
-		//DataControl.delAllData ();
 
-		/* JsonNode 使い方
+        // 指定したデータを削除
+        //DataControl.delOneData(0);
+
+        // データを全削除
+        DataControl.delAllData ();
+
+        /* JsonNode 使い方
 		JsonNode json = JsonNode.Parse(jsonAsset.text);
 
 		// Get<T> で型指定して取得
@@ -38,5 +42,20 @@ public class Sample : MonoBehaviour {
 
 		Debug.Log(kuroName);
 		*/
-	}
+
+        // データを全て取得
+        //List<JsonNode> dataset = DataControl.getAllData();
+        /*
+        foreach (JsonNode jn in dataset.ToArray())
+        {
+            foreach(var result in jn["results"])
+            {
+                Debug.Log(result["id"].Get<string>());
+                Debug.Log(result["name"].Get<string>());
+
+            }
+        }
+        */
+    }
+    
 }
