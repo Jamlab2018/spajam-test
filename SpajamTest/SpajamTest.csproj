@@ -296,6 +296,8 @@
     <Compile Include="Assets\Kanbara\Scripts\UI\alubum\photoDetailInfo.cs" />
     <Compile Include="Assets\Kanbara\Scripts\UI\alubum\photoDetailPanel.cs" />
     <Compile Include="Assets\Kanbara\Scripts\UI\alubum\ScrollController.cs" />
+    <Compile Include="Assets\Kanbara\Scripts\UI\photoDetail\jamReview.cs" />
+    <Compile Include="Assets\Kanbara\Scripts\UI\photoDetail\photoDetailController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
