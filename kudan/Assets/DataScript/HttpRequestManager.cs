@@ -59,7 +59,46 @@ public class HttpRequestManager : MonoBehaviour
     //通信終了後の処理
     private void connectionEnd(WWW www)
     {
+        Text posttext = text.GetComponent<Text>();
+        //通信結果をLogで出す
+        if (www.error != null)
+        {
+            //エラー内容 -> www.error
+            Debug.Log(www.error);
+            posttext.text = "エラー"+www.error.ToString();
+        }
+        else
+        {
+            //通信結果 -> www.text
+            Debug.Log(www.text);
+            
+            posttext.text = www.text.ToString();
+            
+            JsonNode jn = DataControl.jsonDecode (www.text);
+			//place
+			placeStart (jn["results"] [0] ["place_id"].Get<string> ());
+        }
+    }
 
+	public void placeStart(string place_id)
+    {
+		string placeurl = "http://nippo.oilstand.net/test/res_review.php";
+        WWWForm form = new WWWForm();
+		form.AddField ("placeid", place_id);
+
+        WWW www = new WWW(placeurl, form);
+        StartCoroutine("WaitForPlaceRequest", www);
+    }
+
+    private IEnumerator WaitForPlaceRequest(WWW www)
+    {
+        yield return www;
+        placeEnd(www);
+    }
+
+    //通信終了後の処理
+    private void placeEnd(WWW www)
+    {
         //通信結果をLogで出す
         if (www.error != null)
         {
@@ -69,15 +108,13 @@ public class HttpRequestManager : MonoBehaviour
         else
         {
             //通信結果 -> www.text
+            Text posttext = text.GetComponent<Text>();
+            posttext.text = www.text.ToString();
             Debug.Log(www.text);
-            post = text.GetComponent<Text>();
-            post.text = www.text.ToString();
-            DataControl.dataInsert(www.text);
-            DataTable dt = DataControl.getData();
-            foreach(DataRow dr in dt.Rows)
-            {
-                Debug.Log(dr.Count);
-            }
+			DataControl.dataInsert(www.text);
+
         }
     }
+
+
 }

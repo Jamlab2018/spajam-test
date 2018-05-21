@@ -46,9 +46,6 @@ public class cameraset : MonoBehaviour
                     callback: Callback
                 )
             );
-            place = GameObject.Find("MainCamera");
-            Getplace g1 = place.GetComponent<Getplace>();
-            g1.placeclick();
         }
     }
 
@@ -58,7 +55,6 @@ public class cameraset : MonoBehaviour
 
         shot.SetActive(true);
         back.SetActive(true);
-        
         // SceneManager.LoadScene("photo");
 
     }
@@ -110,7 +106,7 @@ public class cameraset : MonoBehaviour
             if (latency >= latencyLimit)
             {
 
-                Debug.LogWarning("待機時間が上限に達しました！正常にスクリーンショットが保存できていません！");
+                Debug.Log("待機時間が上限に達しました！正常にスクリーンショットが保存できていません！");
 
             }
 

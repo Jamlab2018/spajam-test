@@ -37,13 +37,14 @@ public class DataControl : MonoBehaviour {
         string query = "INSERT INTO "+ tablename + " VALUES(NULL,";
 
         query +=
-            "'" + jn["results"][0]["name"].Get<string>() + "'," +
-            //"'" + jn["results"][0]["icon"].Get<string>() + "'," +
-            "'" + jn["results"][0]["vicinity"].Get<string>() + "'," +
-            jn["results"][0]["rating"].Get<double>() + "," +
+            "'" + jn["result"]["name"].Get<string>() + "'," +
+			"'" + jn["result"]["formatted_address"].Get<string>() + "'," +
+			"'" + jn["result"]["formatted_phone_number"].Get<string>() + "'," +
+			"''," +
+            jn["result"]["rating"].Get<double>() + "," +
             "0" +
             ")";
-        
+		Debug.Log (query);
         // データ追加
         int result = DBControll.execute(query);
 
