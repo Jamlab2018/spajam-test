@@ -9,10 +9,13 @@ public class jamReview : MonoBehaviour {
 
     GameObject reviewView;
     public GameObject stars;//評価の星をまとめたゲームオブジェクト
+    public Text comment;
 
     //星の画像
     Sprite ratingOn;
     Sprite ratingOff;
+
+    public photoDetailController controller;
 
     int rateNum = 0;
 
@@ -47,9 +50,16 @@ public class jamReview : MonoBehaviour {
 
     public void pushDecideButton()
     {
-        //DBへ登録するための処理を行う。
-        
-        reviewView.SetActive(false);
+        string query = "update jtable set myrating =" + rateNum.ToString() + ", comment = " + comment.text + "where id = " + SceneUtility.photoid.ToString(); 
+        DBControll.execute(query);
+
+        float tempRateNum = rateNum / 5.0f;
+
+        //詳細画面の評価も変更する
+        controller.reviewStars.fillAmount = tempRateNum;
+        controller.myReviewStars.fillAmount = tempRateNum;
+        controller.reviewNumber.text = rateNum.ToString();
+       reviewView.SetActive(false);
     }
 
     //とりあえずの実装

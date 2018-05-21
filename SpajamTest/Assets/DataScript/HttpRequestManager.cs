@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class HttpRequestManager : MonoBehaviour
 {
     // URL
-    string url = "http://nippo.oilstand.net/test/res2.php";
+    string url = "http://nippo.oilstand.net/test/res.php";
     void Start()
     {
         connectionStart();  // GET
@@ -54,6 +54,12 @@ public class HttpRequestManager : MonoBehaviour
         {
             //通信結果 -> www.text
             Debug.Log(www.text);
+            DataControl.dataInsert(www.text);
+            DataTable dt = DataControl.getData();
+            foreach(DataRow dr in dt.Rows)
+            {
+                Debug.Log(dr.Count);
+            }
         }
     }
 }
