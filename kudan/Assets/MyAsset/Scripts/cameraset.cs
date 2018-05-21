@@ -30,6 +30,12 @@ public class cameraset : MonoBehaviour
         webcamTexture = new WebCamTexture(devices[0].name, Width, Height, FPS);
         material.mainTexture = webcamTexture;
         webcamTexture.Play();
+        if (!Directory.Exists("Application.persistentDataPath"+"/photo"))
+        {
+            // フォルダが存在しないなら作成
+            Directory.CreateDirectory(Application.persistentDataPath+"/photo");
+
+        }
     }
 
     public void OnCapture()
