@@ -69,33 +69,19 @@ public class ScrollController : MonoBehaviour
     {
         int dataNum = 0;
 
-        Debug.Log("aaaaaa");
-
-        //スクロールビューを展開後にデータベースの問い合わせを行う。
-        //完了次第、リストの作成を行う予定。
-
         //Jsonデータの取得
-       // jsonDataset = DataControl.getAllData();
+        // jsonDataset = DataControl.getAllData();
 
         //テスト
         dataNum = testDataNum;
 
         //dataNum = jsonDataset.Count;
 
-        if (dataNum != 0) noDataText.SetActive(false);
+        // データを全て取得
+        DataTable dt = DataControl.getData();
 
-        //データベースから取得した個数に応じて、リストを作成する予定。
-         for (int i = 0; i < dataNum; i++)
-        //foreach (JsonNode jn in jsonDataset.ToArray())
-        {
-            //foreach (var result in jn["results"])
-            //{
-            /*
-            Debug.Log(jn["id"].Get<string>());
-            Debug.Log(jn["titlename"].Get<string>());
-            //Debug.Log(jn["titlename"].Get<string>());
-            //}
-            */
+        foreach (DataRow dr in dt.Rows) {
+            dataNum++;
 
             var item = GameObject.Instantiate(prefab) as RectTransform;
             item.SetParent(transform, false);
@@ -106,7 +92,7 @@ public class ScrollController : MonoBehaviour
             //詳細情報をノードに設定する
             
             photoDetailInfo info = new photoDetailInfo();
-            info.photoID = i;
+            info.photoID = int.Parse(dr["id"].ToString());
             node.setDetailInfo(info);
             
 
@@ -117,9 +103,21 @@ public class ScrollController : MonoBehaviour
             Image childImageName = item.gameObject.transform.Find("Image").gameObject.GetComponent<Image>();
             childImageName.sprite = Resources.Load<Sprite>("Icon");
 
+            Debug.Log(dr["name"]);
+
             //お店の名前の取得
             Text childTitleName = item.gameObject.transform.Find("titleText").gameObject.GetComponent<Text>();
-            childTitleName.text = "HelloWorld"; //jn["titlename"].Get<string>();
+            childTitleName.text = dr["name"].ToString(); //jn["titlename"].Get<string>();
+
+            Image ratingStar = item.gameObject.transform.Find("ratingonImage").gameObject.GetComponent<Image>();
+
+            string rate = dr["myrating"].ToString();
+
+            if (rate == null)
+            {
+                rate = dr["rating"].ToString();
+            }
+            ratingStar.fillAmount = float.Parse(rate) / 5.0f;
 
             //お店名の取得
 
@@ -134,6 +132,8 @@ public class ScrollController : MonoBehaviour
             text.text = "item:" + i.ToString();
             */
         }
+
+        if (listViewNodes.Count != 0) noDataText.SetActive(false);
 
         //スクロールビューの頭から表示されるように
         scrollRect = scrollView.GetComponent<ScrollRect>();
@@ -179,18 +179,25 @@ public class ScrollController : MonoBehaviour
             {
                 checkflg = true;
 
-                //Todo:データベースの削除
+
+             
+                string query = "delete from jtable where id = " + listViewNodes[i].getDetailInfo().photoID.ToString();
+                DBControll.execute(query);
 
                 //リストの削除
                 listViewNodes.RemoveAt(i);
+
+
             }
         }
 
         //データベース内のデータを削除した場合は再読み込みを行う。
-        if (!checkflg)
+        if (checkflg)
         {
-            //Todo:データベースの削除
+            SceneManager.LoadScene("photoAlubum");
         }
+        
+        if (listViewNodes.Count == 0) noDataText.SetActive(true);
 
         //終了処理
         photoButton.SetActive(true);

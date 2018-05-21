@@ -286,16 +286,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="SpajamTest.Plugins.csproj">
+      <Project>{E3AA59FB-52F8-634A-4EC0-464535060F54}</Project>
+      <Name>SpajamTest.Plugins</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Assets\DataScript\DataControl.cs" />
+    <Compile Include="Assets\DataScript\DBControl.cs" />
+    <Compile Include="Assets\DataScript\HttpRequestManager.cs" />
     <Compile Include="Assets\DataScript\JsonNode.cs" />
     <Compile Include="Assets\DataScript\JsonReadWeb.cs" />
-    <Compile Include="Assets\DataScript\MiniJson.cs" />
     <Compile Include="Assets\DataScript\Sample.cs" />
+    <Compile Include="Assets\DataScript\SQLite\DataTable.cs" />
+    <Compile Include="Assets\DataScript\SQLite\SqliteDatabase.cs" />
     <Compile Include="Assets\Kanbara\Scripts\SceneUtility.cs" />
     <Compile Include="Assets\Kanbara\Scripts\UI\alubum\listViewNode.cs" />
     <Compile Include="Assets\Kanbara\Scripts\UI\alubum\photoDetailInfo.cs" />
     <Compile Include="Assets\Kanbara\Scripts\UI\alubum\photoDetailPanel.cs" />
     <Compile Include="Assets\Kanbara\Scripts\UI\alubum\ScrollController.cs" />
+    <Compile Include="Assets\Kanbara\Scripts\UI\deleteConfirm.cs" />
     <Compile Include="Assets\Kanbara\Scripts\UI\photoDetail\jamReview.cs" />
     <Compile Include="Assets\Kanbara\Scripts\UI\photoDetail\photoDetailController.cs" />
   </ItemGroup>
