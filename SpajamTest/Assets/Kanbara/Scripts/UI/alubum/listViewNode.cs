@@ -53,7 +53,7 @@ public class listViewNode : MonoBehaviour {
 
     public void touchNode()
     {
-        Debug.Log(info.photoID);
+        //Debug.Log(info.photoID);
         owner.touchNode(this);
     }
 }

@@ -27,10 +27,18 @@ public class ScrollController : MonoBehaviour
     GameObject deleteButton;
     GameObject cancelButton;
 
+    //データがない時のテキスト
+    GameObject noDataText;
+
+    List<JsonNode> jsonDataset;
+
     List<listViewNode> listViewNodes;
 
     //ビューのモード
     int mode;
+
+    //データ削除検証
+    int testDataNum = 15;
 
     void Start()
 
@@ -41,15 +49,54 @@ public class ScrollController : MonoBehaviour
         photoButton = GameObject.Find("photoButton");
         deleteButton = GameObject.Find("deleteButton");
         cancelButton = GameObject.Find("cancelButton");
+        noDataText = GameObject.Find("noDataDiscription");
         cancelButton.SetActive(false);
+
+        /*
+        // jsonに値を追加
+        //string json = DataControl.jsonEncodeById(0,"title","test");
+
+        // データを保存(第二引数に指定があればUpdate)
+        DataControl.Save(json);
+        */
+
+        testDataNum = 15;
+
+        this.updateScrollView();
+    }
+
+    void updateScrollView()
+    {
+        int dataNum = 0;
+
+        Debug.Log("aaaaaa");
 
         //スクロールビューを展開後にデータベースの問い合わせを行う。
         //完了次第、リストの作成を行う予定。
 
-        //データベースから取得した個数に応じて、リストを作成する予定。
-        for (int i = 0; i < 15; i++)
+        //Jsonデータの取得
+       // jsonDataset = DataControl.getAllData();
 
+        //テスト
+        dataNum = testDataNum;
+
+        //dataNum = jsonDataset.Count;
+
+        if (dataNum != 0) noDataText.SetActive(false);
+
+        //データベースから取得した個数に応じて、リストを作成する予定。
+         for (int i = 0; i < dataNum; i++)
+        //foreach (JsonNode jn in jsonDataset.ToArray())
         {
+            //foreach (var result in jn["results"])
+            //{
+            /*
+            Debug.Log(jn["id"].Get<string>());
+            Debug.Log(jn["titlename"].Get<string>());
+            //Debug.Log(jn["titlename"].Get<string>());
+            //}
+            */
+
             var item = GameObject.Instantiate(prefab) as RectTransform;
             item.SetParent(transform, false);
 
@@ -57,20 +104,22 @@ public class ScrollController : MonoBehaviour
             node.setOwner(this);
 
             //詳細情報をノードに設定する
+            
             photoDetailInfo info = new photoDetailInfo();
             info.photoID = i;
             node.setDetailInfo(info);
+            
 
             listViewNodes.Add(node);
 
             //データベースから取得した情報を、各カラムに保存する。
             //画像エリアの取得
             Image childImageName = item.gameObject.transform.Find("Image").gameObject.GetComponent<Image>();
-            childImageName.sprite = Resources.Load<Sprite>("Icon"); 
+            childImageName.sprite = Resources.Load<Sprite>("Icon");
 
             //お店の名前の取得
-            Text childTitleName = item.gameObject.transform.Find("Text").gameObject.GetComponent<Text>();
-            childTitleName.text = "HelloWorld!!";
+            Text childTitleName = item.gameObject.transform.Find("titleText").gameObject.GetComponent<Text>();
+            childTitleName.text = "HelloWorld"; //jn["titlename"].Get<string>();
 
             //お店名の取得
 
@@ -90,11 +139,6 @@ public class ScrollController : MonoBehaviour
         scrollRect = scrollView.GetComponent<ScrollRect>();
         scrollRect.verticalNormalizedPosition = 1;
 
-        //ここは別シーンにて作成を行う。
-        /*
-        photoDetailPanel = GameObject.FindGameObjectWithTag("photoDetailPanel");
-        photoDetailPanel.SetActive(false);
-        */
     }
 
 
@@ -182,12 +226,13 @@ public class ScrollController : MonoBehaviour
                 break;
             case DELETE_MODE:
                 node.setDeleteFlg(!node.getDeleteFlg());
-                if (node.getDeleteFlg()) { 
-                    node.gameObject.GetComponent<Image>().color = new Color(132f / 255f, 68f / 255f, 205f / 255f);
+                if (node.getDeleteFlg()) {
+                    node.gameObject.GetComponent<Image>().color = new Color(227f / 255f, 138f / 255f, 138f / 255f);
+                    //node.gameObject.GetComponent<Image>().color = new Color(132f / 255f, 68f / 255f, 205f / 255f);
                 }
                 else
                 {
-                    node.gameObject.GetComponent<Image>().color = new Color(227f / 255f, 138f / 255f, 138f / 255f);
+                    node.gameObject.GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f);
                 }
                 break;
         }

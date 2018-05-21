@@ -30,6 +30,15 @@ public class jamReview : MonoBehaviour {
         //img.material.mainTexture = texture;
     }
 
+    //レビューの画面をポップアップ
+    public void popupReview()
+    {
+        rateNum = 5;
+
+        reviewView.SetActive(true);
+        this.changeStars();
+    }
+
     public void pushCancelButton()
     {
         //DBには登録なし
@@ -44,7 +53,7 @@ public class jamReview : MonoBehaviour {
     }
 
     //とりあえずの実装
-
+    //レビュー表示の星がタップされたときに呼ばれる関数達
     public void rateOneStar()
     {
         rateNum = 1;
@@ -93,12 +102,5 @@ public class jamReview : MonoBehaviour {
         }
     }
 
-    //レビューの画面をポップアップ
-    public void popupReview()
-    {
-        rateNum = 5;
 
-        reviewView.SetActive(true);
-        this.changeStars();
-    }
 }
