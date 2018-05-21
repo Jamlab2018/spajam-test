@@ -34,7 +34,7 @@ public class DataControl : MonoBehaviour {
 
         JsonNode jn = jsonDecode(json);
 
-        string query = "INSERT INTO "+ tablename + " VALUES(1,";
+        string query = "INSERT INTO "+ tablename + " VALUES(NULL,";
 
         query +=
             "'" + jn["results"][0]["name"].Get<string>() + "'," +

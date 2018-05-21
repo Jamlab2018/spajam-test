@@ -17,6 +17,7 @@ public class cameraset : MonoBehaviour
     bool once = true;
     WebCamTexture webcamTexture;
     public Material material;
+    GameObject place;
     void Start()
     {
         once = true;
@@ -36,26 +37,28 @@ public class cameraset : MonoBehaviour
         if (once == true)
         {
             once = false;//画面遷移するまでtrueにならない
-           // back.SetActive(false);
-            //shot.SetActive(false);
+            back.SetActive(false);
+            shot.SetActive(false);
             string date = DateTime.Now.ToString("yyyyMMddhhmm");
             StartCoroutine(
              cameraset.Capture(
                     imageName: "photo/" + date + ".jpg",
                     callback: Callback
                 )
-
-
             );
+            place = GameObject.Find("MainCamera");
+            Getplace g1 = place.GetComponent<Getplace>();
+            g1.placeclick();
         }
     }
 
     private void Callback()
     {
         Debug.Log("撮影完了");
-       // shot.SetActive(true);
-       // back.SetActive(true);
 
+        shot.SetActive(true);
+        back.SetActive(true);
+        
         // SceneManager.LoadScene("photo");
 
     }

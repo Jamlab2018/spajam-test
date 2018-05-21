@@ -20,7 +20,9 @@ public class Getplace : MonoBehaviour {
              callback: Callback
              )
          );
-        
+        post = GameObject.Find("Post");
+        HttpRequestManager p1 = post.GetComponent<HttpRequestManager>();
+        p1.Post(gps_x, gps_y);
     }
     void Callback()
     {
@@ -37,11 +39,6 @@ public class Getplace : MonoBehaviour {
                   "\nタイムスタンプ " + Input.location.lastData.timestamp;
         gps_x = Input.location.lastData.latitude;
         gps_y = Input.location.lastData.longitude;
-
-        post = GameObject.Find("Post");
-        HttpRequestManager p1 = post.GetComponent<HttpRequestManager>();
-        p1.Post(gps_x, gps_y);
-
     }
     public static IEnumerator place(Action callback = null)
     {
