@@ -105,9 +105,6 @@ public class cameraset : MonoBehaviour
 
             if (latency >= latencyLimit)
             {
-
-                Debug.Log("待機時間が上限に達しました！正常にスクリーンショットが保存できていません！");
-
             }
 
 

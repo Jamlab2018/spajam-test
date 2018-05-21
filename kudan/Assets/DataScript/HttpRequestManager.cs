@@ -8,6 +8,9 @@ public class HttpRequestManager : MonoBehaviour
 {
     // URL
     public GameObject text;
+
+    public GameObject shot;
+    public GameObject back;
     Text post;
     string url = "http://nippo.oilstand.net/test/res.php";
     public void Post(float x,float y)
@@ -77,6 +80,8 @@ public class HttpRequestManager : MonoBehaviour
             JsonNode jn = DataControl.jsonDecode (www.text);
 			//place
 			placeStart (jn["results"] [0] ["place_id"].Get<string> ());
+            shot.SetActive(false);
+            back.SetActive(false);
         }
     }
 
@@ -112,7 +117,7 @@ public class HttpRequestManager : MonoBehaviour
             posttext.text = www.text.ToString();
             Debug.Log(www.text);
 			DataControl.dataInsert(www.text);
-
+            // SceneManager.LoadScene("photo"); //@ここのシーンを書き直して遷移
         }
     }
 

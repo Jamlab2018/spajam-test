@@ -32,11 +32,8 @@ public class Getplace : MonoBehaviour {
         placetext = text.GetComponent<Text>();
         placetext.text = "Location: " +
                   "\n緯度gps_x " + Input.location.lastData.latitude +
-                  "\n経度gps_y " + Input.location.lastData.longitude +
-                  "\n標高 " + Input.location.lastData.altitude +
-                  "\n水平精度 " + Input.location.lastData.horizontalAccuracy +
-                  "\n垂直精度 " + Input.location.lastData.verticalAccuracy +
-                  "\nタイムスタンプ " + Input.location.lastData.timestamp;
+                  "\n経度gps_y " + Input.location.lastData.longitude;
+
         gps_x = Input.location.lastData.latitude;
         gps_y = Input.location.lastData.longitude;
     }
