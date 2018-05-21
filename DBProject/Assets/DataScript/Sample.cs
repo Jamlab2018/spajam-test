@@ -11,7 +11,7 @@ public class Sample : MonoBehaviour {
     public void TEST()
     {
 		
-		post.connectionStart (50, 50);
+		post.connectionStart (26.2606552f, 127.7577408f);
         
 
     }
