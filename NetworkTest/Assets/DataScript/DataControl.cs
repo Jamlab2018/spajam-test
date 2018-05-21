@@ -7,6 +7,9 @@ using MiniJSON;
 /// データ保存及び取得
 /// </summary>
 public class DataControl : MonoBehaviour {
+
+    // テーブル名
+    const string tablename = "jtable";
 	
 	//------------------------------------------
 	/// <summary>
@@ -16,29 +19,8 @@ public class DataControl : MonoBehaviour {
 	/// <param name="json">Json.</param>
 	//------------------------------------------
 	public static JsonNode jsonDecode(string json) {
-		//Dictionary<string,object> data = Json.Deserialize (json) as Dictionary<string, object>;
 		JsonNode node = JsonNode.Parse(json);
 		return node;
-	}
-
-	//------------------------------------------
-	/// <summary>
-	/// Json値追加
-	/// </summary>
-	/// <returns>The encode by identifier.</returns>
-	/// <param name="id">Identifier.</param>
-	/// <param name="key">Key.</param>
-	/// <param name="value">Value.</param>
-	//------------------------------------------
-	public static string jsonEncodeById(int id, string key, string value) {
-		string oldjson = DataControl.getJson (id);
-		Dictionary<string,object> data = Json.Deserialize (oldjson) as Dictionary<string, object>;
-		data[key] = value;
-
-		string json = "";
-		json = Json.Serialize (data);
-
-		return json;
 	}
 
 	//------------------------------------------
@@ -48,81 +30,72 @@ public class DataControl : MonoBehaviour {
 	/// <param name="id">ユニークID</param>
 	/// <param name="json">Json.</param>
 	//------------------------------------------
-	public static int Save(string json, int id = -1) {
-		
-		// 連番取得
-		if (id < 0) {
-			id = PlayerPrefs.GetInt ("increment");
-		}
+	public static int dataInsert(string json) {
 
-		// データ保存
-		PlayerPrefs.SetString (id.ToString(), json);
+        JsonNode jn = jsonDecode(json);
 
-		// 連番保存 
-		id++;
-		PlayerPrefs.SetInt ("increment", id);
+        string query = "INSERT INTO "+ tablename + " VALUES(1,";
 
-		return 1;
+        query +=
+            "'" + jn["results"][0]["name"].Get<string>() + "'," +
+            //"'" + jn["results"][0]["icon"].Get<string>() + "'," +
+            "'" + jn["results"][0]["vicinity"].Get<string>() + "'," +
+            jn["results"][0]["rating"].Get<double>() + "," +
+            "0" +
+            ")";
+        
+        // データ追加
+        int result = DBControll.execute(query);
+
+		return result;
 	}
 
-	//------------------------------------------
-	/// <summary>
-	/// Jsonの値を取得
-	/// </summary>
-	/// <returns>The json.</returns>
-	/// <param name="id">Identifier.</param>
-	//------------------------------------------
-	public static string getJson( int id ){
-		return PlayerPrefs.GetString(id.ToString());
+    
+    /// <summary>
+    /// データを複数件取得
+    /// </summary>
+    /// <param name="where"></param>
+    /// <returns></returns>
+	public static DataTable getData(string where = ""){
+        DataTable dt = new DataTable();
+        string query = "";
+        if (where.Equals(""))
+        {
+            query = "SELECT * FROM " + tablename + ";";
+        } else
+        {
+            query = "SELECT * FROM " + tablename + " WHERE " + where + ";";
+        }
+
+        // データを取得
+        dt = DBControll.select(query);
+
+        Debug.Log(query);
+
+		return dt;
 	}
 
-	//------------------------------------------
-	/// <summary>
-	/// 連番保存
-	/// </summary>
-	/// <param name="id">Identifier.</param>
-	//------------------------------------------
-	private void setIncrement(int id) {
-		PlayerPrefs.SetInt ("increment", id);
-	}
+    /// <summary>
+    /// データを1件取得
+    /// </summary>
+    /// <param name="where"></param>
+    /// <returns></returns>
+    public static DataRow getOneData(string where)
+    {
+        DataTable dt = new DataTable();
 
-	//------------------------------------------
-	/// <summary>
-	/// 全情報取得
-	/// </summary>
-	/// <returns>The all data.</returns>
-	//------------------------------------------
-	public static List<JsonNode> getAllData(){
+        string query = "SELECT * FROM " + tablename + " WHERE "+ where +";";
 
-		List<JsonNode> dataset = new List<JsonNode>(0);
+        // データを取得
+        dt = DBControll.select(query);
 
-		int id = PlayerPrefs.GetInt ("increment");
-
-		for (int i = 0; i < PlayerPrefs.GetInt ("increment"); i++) {
-			string json = DataControl.getJson (i);
-			if (json.Equals ("")) {
-				continue;
-			}
-			// Dictionary<string,object>型変数に値を格納する
-			JsonNode data = DataControl.jsonDecode (json);
-
-			dataset.Add(data);
-		}
-		return dataset;
-	}
-
-
-	/// <summary>
-	/// データを全削除
-	/// </summary>
-	public static void delAllData(){
-		PlayerPrefs.DeleteAll ();
-	}
-
-	/// <summary>
-	/// データを削除　key指定
-	/// </summary>
-	public static void delOneData(int id){
-		PlayerPrefs.DeleteKey (id.ToString ());
-	}
+        if (dt == null)
+        {
+            return null;
+        }
+        else
+        {
+            return dt[0];
+        }
+    }
 }
