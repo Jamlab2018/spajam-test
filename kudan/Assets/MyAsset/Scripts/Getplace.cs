@@ -20,10 +20,21 @@ public class Getplace : MonoBehaviour {
              callback: Callback
              )
          );
-        post = GameObject.Find("Post");
-        HttpRequestManager p1 = post.GetComponent<HttpRequestManager>();
-        p1.Post(gps_x, gps_y);
     }
+
+    private void Update()
+    {
+        if (cameraset.create == true) {//取れたら動く(updateなのでちょいこわ)
+            if (gps_x != 0 && gps_y != 0)
+            {
+                cameraset.create = false;
+                post = GameObject.Find("Post");
+                HttpRequestManager p1 = post.GetComponent<HttpRequestManager>();
+                p1.Post(gps_x, gps_y);
+            }
+        }
+    }
+
     void Callback()
     {
         //取得した情報表示
