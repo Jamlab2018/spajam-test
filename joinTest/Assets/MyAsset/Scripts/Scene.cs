@@ -15,7 +15,7 @@ public class Scene : MonoBehaviour {
 	public void OnClick () {
         if (noshot == true)
         {
-            SceneManager.LoadScene("Album");
+            SceneManager.LoadScene("photoAlubum");
         }
 	}
 }
