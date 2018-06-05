@@ -10,7 +10,7 @@ public class cameraset : MonoBehaviour
     public int Width = 1920;
     public int Height = 1080;
     public int FPS = 30;
-
+    public static bool create;
 
     public GameObject back;
     public GameObject shot;
@@ -21,6 +21,7 @@ public class cameraset : MonoBehaviour
     void Start()
     {
         once = true;
+        create = false;
         WebCamDevice[] devices = WebCamTexture.devices;
         // display all cameras
         for (var i = 0; i < devices.Length; i++)
@@ -61,6 +62,7 @@ public class cameraset : MonoBehaviour
 
         shot.SetActive(true);
         back.SetActive(true);
+        create = true;
         // SceneManager.LoadScene("photo");
 
     }
