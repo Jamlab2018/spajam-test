@@ -29,6 +29,7 @@ public class ScrollController : MonoBehaviour
 
     //データがない時のテキスト
     GameObject noDataText;
+    Text myComment;
 
     List<JsonNode> jsonDataset;
 
@@ -37,8 +38,8 @@ public class ScrollController : MonoBehaviour
     //ビューのモード
     int mode;
 
-    //データ削除検証
-    int testDataNum = 15;
+    //スクロールバー
+    public GameObject scrollBar;
 
     void Start()
 
@@ -52,36 +53,17 @@ public class ScrollController : MonoBehaviour
         noDataText = GameObject.Find("noDataDiscription");
         cancelButton.SetActive(false);
 
-        /*
-        // jsonに値を追加
-        //string json = DataControl.jsonEncodeById(0,"title","test");
-
-        // データを保存(第二引数に指定があればUpdate)
-        DataControl.Save(json);
-        */
-
-        testDataNum = 15;
 
         this.updateScrollView();
     }
 
     void updateScrollView()
     {
-        int dataNum = 0;
-
-        //Jsonデータの取得
-        // jsonDataset = DataControl.getAllData();
-
-        //テスト
-        dataNum = testDataNum;
-
-        //dataNum = jsonDataset.Count;
-
+       
         // データを全て取得
         DataTable dt = DataControl.getData();
 
         foreach (DataRow dr in dt.Rows) {
-            dataNum++;
 
             var item = GameObject.Instantiate(prefab) as RectTransform;
             item.SetParent(transform, false);
@@ -103,7 +85,7 @@ public class ScrollController : MonoBehaviour
             Image childImageName = item.gameObject.transform.Find("Image").gameObject.GetComponent<Image>();
             childImageName.sprite = Resources.Load<Sprite>("Icon");
 
-            Debug.Log(dr["name"]);
+            //Debug.Log(dr["name"]);
 
             //お店の名前の取得
             Text childTitleName = item.gameObject.transform.Find("titleText").gameObject.GetComponent<Text>();
@@ -111,30 +93,29 @@ public class ScrollController : MonoBehaviour
 
             Image ratingStar = item.gameObject.transform.Find("ratingonImage").gameObject.GetComponent<Image>();
 
+
+            //評価の星を取得
             string rate = dr["myrating"].ToString();
 
-            if (rate == null)
+            if (rate == "")
             {
                 rate = dr["rating"].ToString();
             }
             ratingStar.fillAmount = float.Parse(rate) / 5.0f;
 
-            //お店名の取得
 
-            //評価内容
+            //自分で評価した内容
+            myComment = item.gameObject.transform.Find("descriptionText ").gameObject.GetComponent<Text>();
+            string comment = dr["mycomment"].ToString();
+            if (comment != "") myComment.text = comment;
 
-            //評価の星
-
-            //お店の画像とお店の名前と評価の星と評価のコメント
-            /*
-            var text = item.GetComponentInChildren<Text>();
-
-            text.text = "item:" + i.ToString();
-            */
         }
 
-        if (listViewNodes.Count != 0) noDataText.SetActive(false);
-
+        if (listViewNodes.Count != 0)
+        {
+            scrollBar.SetActive(false);
+            noDataText.SetActive(false);
+        }
         //スクロールビューの頭から表示されるように
         scrollRect = scrollView.GetComponent<ScrollRect>();
         scrollRect.verticalNormalizedPosition = 1;
@@ -171,7 +152,9 @@ public class ScrollController : MonoBehaviour
     {
         bool checkflg = false;
 
-        for(int i = 0; i < listViewNodes.Count; i++)
+        int count = listViewNodes.Count;
+
+        for (int i = 0; i < count; i++)
         {
 
             //デリーとフラグが立っていればデータベースの削除
@@ -183,13 +166,9 @@ public class ScrollController : MonoBehaviour
              
                 string query = "delete from jtable where id = " + listViewNodes[i].getDetailInfo().photoID.ToString();
                 DBControll.execute(query);
-
-                //リストの削除
-                listViewNodes.RemoveAt(i);
-
-
             }
         }
+        
 
         //データベース内のデータを削除した場合は再読み込みを行う。
         if (checkflg)

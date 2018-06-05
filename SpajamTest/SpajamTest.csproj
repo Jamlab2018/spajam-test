@@ -302,6 +302,8 @@
     <Compile Include="Assets\DataScript\SQLite\SqliteDatabase.cs" />
     <Compile Include="Assets\Kanbara\Scripts\SceneUtility.cs" />
     <Compile Include="Assets\Kanbara\Scripts\UI\alubum\listViewNode.cs" />
+    <Compile Include="Assets\Kanbara\Scripts\UI\alubum\LongPressButton.cs" />
+    <Compile Include="Assets\Kanbara\Scripts\UI\alubum\LongPressScroll.cs" />
     <Compile Include="Assets\Kanbara\Scripts\UI\alubum\photoDetailInfo.cs" />
     <Compile Include="Assets\Kanbara\Scripts\UI\alubum\photoDetailPanel.cs" />
     <Compile Include="Assets\Kanbara\Scripts\UI\alubum\ScrollController.cs" />
