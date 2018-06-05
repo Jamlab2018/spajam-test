@@ -3,23 +3,37 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HttpRequestManager : MonoBehaviour
 {
     public GameObject text;
 
 	Text post; // 
+    bool ok;
 	string url = "http://nippo.oilstand.net/test/res.php"; // URL
 
-	//------------------------------------------------
-	/// <summary>
-	/// VisionAPI処理開始
-	/// </summary>
-	/// <param name="x">The x coordinate.</param>
-	/// <param name="y">The y coordinate.</param>
-	//------------------------------------------------
-	public void Post(float x,float y)
+    ///データを取ったらロード(Updateでやっちゃうけどいい方法ないかね)
+    ///
+    void Update()
     {
+        if (ok==true)
+        {
+            SceneManager.LoadScene("photoDetail");
+        }
+
+    }
+
+    //------------------------------------------------
+    /// <summary>
+    /// VisionAPI処理開始
+    /// </summary>
+    /// <param name="x">The x coordinate.</param>
+    /// <param name="y">The y coordinate.</param>
+    //------------------------------------------------
+    public void Post(float x,float y)
+    {
+        ok = false;
         connectionStart(x,y);// GET
     }
 
@@ -106,6 +120,8 @@ public class HttpRequestManager : MonoBehaviour
 				//place
 				placeStart (jn ["results"] [0] ["place_id"].Get<string> ());
 			}
+
+            ok = true;
         }
     }
 
@@ -157,7 +173,6 @@ public class HttpRequestManager : MonoBehaviour
             //通信結果 -> www.text
             Debug.Log(www.text);
 			DataControl.dataInsert(www.text);
-
         }
     }
 
