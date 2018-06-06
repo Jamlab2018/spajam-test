@@ -24,6 +24,8 @@ public class Getplace : MonoBehaviour {
 
     private void Update()
     {
+        
+
         if (cameraset.create == true) {//取れたら動く(updateなのでちょいこわ)
             if (gps_x != 0 && gps_y != 0)
             {
