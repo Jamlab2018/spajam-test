@@ -50,16 +50,22 @@ public class jamReview : MonoBehaviour {
 
     public void pushDecideButton()
     {
-        string query = "update jtable set myrating =" + rateNum.ToString() + ", comment = " + comment.text + "where id = " + SceneUtility.photoid.ToString(); 
+        string query = "update jtable set myrating =" + rateNum.ToString() + ", mycomment = '" + comment.text + "' where id = " + SceneUtility.photoid.ToString(); 
         DBControll.execute(query);
 
         float tempRateNum = rateNum / 5.0f;
 
         //詳細画面の評価も変更する
         controller.reviewStars.fillAmount = tempRateNum;
-        controller.myReviewStars.fillAmount = tempRateNum;
         controller.reviewNumber.text = rateNum.ToString();
-       reviewView.SetActive(false);
+
+        controller.myReviewStars.fillAmount = tempRateNum;
+        controller.myComment.text = comment.text;
+
+        reviewView.SetActive(false);
+
+        if (comment.text != "") controller.myCommentView.SetActive(true);
+
     }
 
     //とりあえずの実装
