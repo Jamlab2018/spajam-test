@@ -121,7 +121,8 @@ public class HttpRequestManager : MonoBehaviour
 				placeStart (jn ["results"] [0] ["place_id"].Get<string> ());
 			}
 
-            ok = true;
+			// 処理完了の場所を移動
+            //ok = true;
         }
     }
 
@@ -173,6 +174,9 @@ public class HttpRequestManager : MonoBehaviour
             //通信結果 -> www.text
             Debug.Log(www.text);
 			DataControl.dataInsert(www.text);
+
+			// 処理完了の場所を移動
+			ok = true;
         }
     }
 
