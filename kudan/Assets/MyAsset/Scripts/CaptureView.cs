@@ -19,7 +19,7 @@ public class CaptureView : MonoBehaviour
     void Start()
     {
         //時間を取得してその時間の画像ファイルをbyte[]型変数に格納
-        string date = DateTime.Now.ToString("yyyyMMddhhmm");
+        string date = DateTime.Now.ToString("yyyyMMddHHmm");
         texture = readPngFile(Application.persistentDataPath + "/photo"+"/"+date+".jpg");
 
         //textureをTexture型に変換
