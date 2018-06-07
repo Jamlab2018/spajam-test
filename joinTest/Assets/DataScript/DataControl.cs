@@ -30,7 +30,7 @@ public class DataControl : MonoBehaviour {
 	/// <param name="id">ユニークID</param>
 	/// <param name="json">Json.</param>
 	//------------------------------------------
-	public static int dataInsert(string json) {
+	public static int dataInsert(string json, string filepath="") {
 
         JsonNode jn = jsonDecode(json);
 
@@ -42,7 +42,9 @@ public class DataControl : MonoBehaviour {
 			"'" + jn["result"]["formatted_phone_number"].Get<string>() + "'," +
 			"''," +
             jn["result"]["rating"].Get<double>() + "," +
-            "0" +
+            "0" +"," +
+			"''," +
+			"'" + filepath + "'" +
             ")";
 		Debug.Log (query);
         // データ追加
@@ -99,4 +101,28 @@ public class DataControl : MonoBehaviour {
             return dt[0];
         }
     }
+
+	/// <summary>
+	/// 最新のIdを1件取得
+	/// </summary>
+	/// <param name="where"></param>
+	/// <returns></returns>
+	public static int getMaxId()
+	{
+		DataTable dt = new DataTable();
+
+		string query = "SELECT max(id) AS id FROM " + tablename + ";";
+
+		// データを取得
+		dt = DBControll.select(query);
+
+		if (dt == null)
+		{
+			return 0;
+		}
+		else
+		{
+			return (int)dt.Rows[0]["id"];
+		}
+	}
 }

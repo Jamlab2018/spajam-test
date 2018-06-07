@@ -12,6 +12,7 @@ public class HttpRequestManager : MonoBehaviour
 	Text post; // 
     bool ok;
 	string url = "http://nippo.oilstand.net/test/res.php"; // URL
+	string insertFilePath ="";
 
     ///データを取ったらロード(Updateでやっちゃうけどいい方法ないかね)
     ///
@@ -19,7 +20,8 @@ public class HttpRequestManager : MonoBehaviour
     {
         if (ok==true)
         {
-            SceneManager.LoadScene("photoDetail");
+            //SceneManager.LoadScene("photoDetail");
+			SceneUtility.moveScene ("main", "photoDetail", DataControl.getMaxId());
         }
 
     }
@@ -49,6 +51,7 @@ public class HttpRequestManager : MonoBehaviour
         string date = DateTime.Now.ToString("yyyyMMddHHmm");
         string fileName = date+".jpg";
         string filePath = Application.dataPath + "/" + fileName;
+		insertFilePath = filePath;
 
 #if !UNITY_EDITOR && (UNITY_IOS || UNITY_ANDROID)
         filePath = Application.persistentDataPath+"/photo/" + fileName;
@@ -173,7 +176,7 @@ public class HttpRequestManager : MonoBehaviour
         {
             //通信結果 -> www.text
             Debug.Log(www.text);
-			DataControl.dataInsert(www.text);
+			DataControl.dataInsert(www.text).ToString();
 
 			// 処理完了の場所を移動
 			ok = true;
