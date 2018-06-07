@@ -52,7 +52,7 @@ public class HttpRequestManager : MonoBehaviour
         string date = DateTime.Now.ToString("yyyyMMddHHmm");
         string fileName = date+".jpg";
         string filePath = Application.dataPath + "/" + fileName;
-		insertFilePath = Path.Combine(Application.persistentDataPath, fileName);
+		insertFilePath = filePath;
 
 #if !UNITY_EDITOR && (UNITY_IOS || UNITY_ANDROID)
         filePath = Application.persistentDataPath+"/photo/" + fileName;
