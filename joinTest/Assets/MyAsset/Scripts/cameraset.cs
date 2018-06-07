@@ -46,7 +46,7 @@ public class cameraset : MonoBehaviour
             once = false;//画面遷移するまでtrueにならない
             back.SetActive(false);
             shot.SetActive(false);
-            string date = DateTime.Now.ToString("yyyyMMddhhmm");
+            string date = DateTime.Now.ToString("yyyyMMddHHmm");
             StartCoroutine(
              cameraset.Capture(
                     imageName: "photo/" + date + ".jpg",

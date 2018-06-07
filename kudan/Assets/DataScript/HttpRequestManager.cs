@@ -46,7 +46,7 @@ public class HttpRequestManager : MonoBehaviour
     //------------------------------------------------
     public void connectionStart(float gps_x, float gps_y)
     {
-        string date = DateTime.Now.ToString("yyyyMMddhhmm");
+        string date = DateTime.Now.ToString("yyyyMMddHHmm");
         string fileName = date + ".jpg";
         string filePath = Application.dataPath + "/" + fileName;
 
