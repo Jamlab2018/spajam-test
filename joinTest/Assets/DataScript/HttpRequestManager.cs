@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System.IO;
 using UnityEngine.SceneManagement;
 
 public class HttpRequestManager : MonoBehaviour
@@ -51,7 +52,7 @@ public class HttpRequestManager : MonoBehaviour
         string date = DateTime.Now.ToString("yyyyMMddHHmm");
         string fileName = date+".jpg";
         string filePath = Application.dataPath + "/" + fileName;
-		insertFilePath = filePath;
+		insertFilePath = Path.Combine(Application.persistentDataPath, fileName);
 
 #if !UNITY_EDITOR && (UNITY_IOS || UNITY_ANDROID)
         filePath = Application.persistentDataPath+"/photo/" + fileName;
@@ -176,7 +177,7 @@ public class HttpRequestManager : MonoBehaviour
         {
             //通信結果 -> www.text
             Debug.Log(www.text);
-			DataControl.dataInsert(www.text).ToString();
+			DataControl.dataInsert(www.text,insertFilePath).ToString();
 
 			// 処理完了の場所を移動
 			ok = true;
