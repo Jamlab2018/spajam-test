@@ -1996,6 +1996,11 @@ Prefab:
       propertyPath: menuList
       value: 
       objectReference: {fileID: 639535626}
+    - target: {fileID: 114787621992107302, guid: 17d06403e13907049bea7c8e9f07e4ef,
+        type: 2}
+      propertyPath: scrollBar
+      value: 
+      objectReference: {fileID: 99865659}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 17d06403e13907049bea7c8e9f07e4ef, type: 2}
   m_IsPrefabParent: 0
