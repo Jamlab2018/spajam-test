@@ -14,6 +14,12 @@ public class Getplace : MonoBehaviour {
     float gps_y;    //位置情報y
     //写真ボタンを押したら位置情報を取得する。
     GameObject post;
+
+    private void Start()
+    {
+        gps_x = 0;
+        gps_y = 0;
+    }
     public void placeclick()
     {
         StartCoroutine(

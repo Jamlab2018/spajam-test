@@ -58,11 +58,22 @@ public class cameraset : MonoBehaviour
 
     private void Callback()
     {
-        Debug.Log("撮影完了");
+        string date = DateTime.Now.ToString("yyyyMMddHHmm");
+        string imageName = "photo/" + date + ".jpg";
+        string imagePath = Path.Combine(Application.persistentDataPath, imageName);
+        if (File.Exists(imagePath))
+        {
+            create = true;
+            Debug.Log("撮影完了");
+        }
 
+        if (create == false)
+        {
+            once = true;//もう一度撮影できるように
+        }
         shot.SetActive(true);
         back.SetActive(true);
-        create = true;
+ 
         // SceneManager.LoadScene("photo");
 
     }
