@@ -568,6 +568,7 @@ MonoBehaviour:
   myCommentView: {fileID: 1649107838}
   shopName: {fileID: 1802103287}
   reviewNumber: {fileID: 2001823846}
+  photoPicture: {fileID: 729294552}
   reviewStars: {fileID: 88406202}
   myReviewStars: {fileID: 755588734}
   myComment: {fileID: 851207245}

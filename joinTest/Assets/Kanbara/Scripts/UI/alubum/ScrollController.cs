@@ -80,10 +80,9 @@ public class ScrollController : MonoBehaviour
 
             listViewNodes.Add(node);
 
-            //データベースから取得した情報を、各カラムに保存する。
-            //画像エリアの取得
-            Image childImageName = item.gameObject.transform.Find("Image").gameObject.GetComponent<Image>();
-            childImageName.sprite = Resources.Load<Sprite>("Icon");
+ 
+
+            //childImageName.sprite = Resources.Load<Sprite>("Icon");
 
             //Debug.Log(dr["name"]);
 
@@ -109,11 +108,21 @@ public class ScrollController : MonoBehaviour
             string comment = dr["mycomment"].ToString();
             if (comment != "") myComment.text = comment;
 
+            //データベースから取得した情報を、各カラムに保存する。
+            //画像エリアの取得
+            Image childImageName = item.gameObject.transform.Find("Image").gameObject.GetComponent<Image>();
+
+            Debug.Log(dr["image_path"].ToString());
+
+            CaptureView captureView = new CaptureView();
+            childImageName.sprite = captureView.GetSprite(dr["image_path"].ToString());
+
+
         }
 
         if (listViewNodes.Count != 0)
         {
-            scrollBar.SetActive(false);
+            //scrollBar.SetActive(false);
             noDataText.SetActive(false);
         }
         //スクロールビューの頭から表示されるように

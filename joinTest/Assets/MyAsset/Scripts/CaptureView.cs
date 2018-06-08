@@ -18,6 +18,7 @@ public class CaptureView : MonoBehaviour
 
     void Start()
     {
+        
         //時間を取得してその時間の画像ファイルをbyte[]型変数に格納
         string date = DateTime.Now.ToString("yyyyMMddhhmm");
         texture = readPngFile(Application.persistentDataPath + "/photo"+"/"+date+".jpg");
@@ -28,6 +29,17 @@ public class CaptureView : MonoBehaviour
         //texをアタッチしたオブジェクトのテクスチャにする
         Renderer renderer = this.GetComponent<Renderer>();
         renderer.material.mainTexture = tex;
+        
+    }
+
+    public Sprite GetSprite(string path)
+    {
+        texture = readPngFile(path);
+ 
+        Texture2D texture2d = new Texture2D(0, 0);
+        texture2d.LoadImage(texture);
+        return Sprite.Create(texture2d, new Rect(0, 0, Screen.width, Screen.height), Vector2.zero);
+        ;
     }
 
     /// <summary>

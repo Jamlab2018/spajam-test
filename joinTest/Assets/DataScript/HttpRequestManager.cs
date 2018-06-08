@@ -50,12 +50,14 @@ public class HttpRequestManager : MonoBehaviour
     public void connectionStart(float gps_x,float gps_y)
     {
         string date = DateTime.Now.ToString("yyyyMMddHHmm");
-        string fileName = date+".jpg";
+        string fileName = date + ".jpg";
         string filePath = Application.dataPath + "/" + fileName;
-		insertFilePath = filePath;
+        string image_path = "/photo/" + date + ".jpg";
+        //insertFilePath = Path.Combine(Application.persistentDataPath, image_path); ;
+        insertFilePath = Application.persistentDataPath + image_path;
 
 #if !UNITY_EDITOR && (UNITY_IOS || UNITY_ANDROID)
-        filePath = Application.persistentDataPath+"/photo/" + fileName;
+        filePath = Application.persistentDataPath +"/photo/" + fileName;
 #endif
 
         Debug.Log("x"+gps_x+"\n");

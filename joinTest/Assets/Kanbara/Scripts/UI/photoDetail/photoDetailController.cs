@@ -11,6 +11,7 @@ public class photoDetailController : MonoBehaviour {
     public Text shopName;
     public Text reviewNumber;
     //public InputField reviewCommand;
+    public Image photoPicture;
     public Image reviewStars;
     public Image myReviewStars;
     public Text myComment;
@@ -24,7 +25,10 @@ public class photoDetailController : MonoBehaviour {
 
         // データを条件指定して1件取得
         DataRow drone = DataControl.getOneData("id=" + SceneUtility.photoid.ToString());
-        
+
+        CaptureView captureView = new CaptureView();
+        photoPicture.sprite = captureView.GetSprite(drone["image_path"].ToString());
+
         //店舗名の更新
         shopName.text = drone["name"].ToString();
 
