@@ -30,19 +30,47 @@ public class DataControl : MonoBehaviour {
 	/// <param name="id">ユニークID</param>
 	/// <param name="json">Json.</param>
 	//------------------------------------------
-	public static int dataInsert(string json) {
+	public static int dataInsert(string json, string filepath="") {
 
         JsonNode jn = jsonDecode(json);
 
-        string query = "INSERT INTO "+ tablename + " VALUES(NULL,";
+		string query = "INSERT INTO " + tablename; 
+
+		query +=
+			" (" +
+			"id," +
+			"name," +
+			"address," +
+			"phone_number," +
+			"weekday," +
+			"rating," +
+			"myrating," +
+			"mycomment," +
+			"image_path," +
+			"tag1," +
+			"tag2," +
+			"tag3," +
+			"tag4," +
+			"tag5," +
+			"place_id" +
+			")";
 
         query +=
+			" VALUES(NULL," +
             "'" + jn["result"]["name"].Get<string>() + "'," +
 			"'" + jn["result"]["formatted_address"].Get<string>() + "'," +
 			"'" + jn["result"]["formatted_phone_number"].Get<string>() + "'," +
 			"''," +
             jn["result"]["rating"].Get<double>() + "," +
-            "0" +
+            "0" +"," +
+			"''," +
+			"'" + filepath + "'" +
+			"''," +
+			"''," +
+			"''," +
+			"''," +
+			"''," +
+			jn["result"]["place_id"].Get<int>() +
             ")";
 		Debug.Log (query);
         // データ追加
@@ -99,4 +127,29 @@ public class DataControl : MonoBehaviour {
             return dt[0];
         }
     }
+
+	/// <summary>
+	/// 最新のIdを1件取得
+	/// </summary>
+	/// <param name="where"></param>
+	/// <returns></returns>
+	public static int getMaxId()
+	{
+		DataTable dt = new DataTable();
+
+		string query = "SELECT max(id) AS id FROM " + tablename + ";";
+
+		// データを取得
+		dt = DBControll.select(query);
+
+		if (dt == null)
+		{
+			return 0;
+		}
+		else
+		{
+			return (int)dt.Rows[0]["id"];
+		}
+	}
+
 }
