@@ -15,6 +15,9 @@ public class HttpRequestManager : MonoBehaviour
 	string url = "http://nippo.oilstand.net/test/res.php"; // URL
 	string insertFilePath ="";
 
+	float insgps_x = 0.0f;
+	float insgps_y = 0.0f;
+
     ///データを取ったらロード(Updateでやっちゃうけどいい方法ないかね)
     ///
     void Update()
@@ -81,6 +84,8 @@ public class HttpRequestManager : MonoBehaviour
 
         post = text.GetComponent<Text>();
         //post.text = "x:" + gps_x.ToString() + ":y=" + gps_y.ToString();
+		insgps_x = gps_x;
+		insgps_y = gps_y;
 
         StartCoroutine("WaitForRequest", www);
     }
@@ -190,7 +195,7 @@ public class HttpRequestManager : MonoBehaviour
 			DataControl.dataInsert(www.text,insertFilePath).ToString();
 
 			// インサートを送る
-			GetComponent<InsertMySQL> ().connectionStart (www.text);
+			GetComponent<InsertMySQL> ().connectionStart (www.text, insgps_x,insgps_y);
 
 			// 処理完了の場所を移動
 			ok = true;

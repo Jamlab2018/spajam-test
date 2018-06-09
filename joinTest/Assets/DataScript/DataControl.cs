@@ -143,7 +143,7 @@ public class DataControl : MonoBehaviour {
 
 		if (dt == null)
 		{
-			return 0;
+			return 1;
 		}
 		else
 		{

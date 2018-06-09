@@ -10,7 +10,7 @@ public class InsertMySQL : MonoBehaviour {
 	/// </summary>
 	/// <param name="place_id">Place identifier.</param>
 	//------------------------------------------------
-	public void connectionStart(string json)
+	public void connectionStart(string json, float gps_x, float gps_y)
 	{
 		string url = "https://shimesabawebplayer.appspot.com/post.php"; // URL
 		JsonNode jn = DataControl.jsonDecode(json);
@@ -35,9 +35,9 @@ public class InsertMySQL : MonoBehaviour {
 			"''," +
 			"''," +
 			"''," +
-			"'" + jn["result"]["place_id"].Get<string>() + "'" +
-			"'0',"+
-			"'0'"+
+			"'" + jn["result"]["place_id"].Get<string>() + "'," +
+			"'"+gps_x.ToString()+"',"+
+			"'"+gps_y.ToString()+"'"+
 			");";
 		
 		form.AddField("request", query);
