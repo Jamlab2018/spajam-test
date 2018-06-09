@@ -15,6 +15,7 @@ public class photoDetailController : MonoBehaviour {
     public Image reviewStars;
     public Image myReviewStars;
     public Text myComment;
+    public Text tagView;
 
     public Text phoneNumber;
     public Text postCode;
@@ -26,8 +27,10 @@ public class photoDetailController : MonoBehaviour {
         // データを条件指定して1件取得
         DataRow drone = DataControl.getOneData("id=" + SceneUtility.photoid.ToString());
 
+        /*
         CaptureView captureView = new CaptureView();
         photoPicture.sprite = captureView.GetSprite(drone["image_path"].ToString());
+        */
 
         //店舗名の更新
         shopName.text = drone["name"].ToString();
@@ -50,6 +53,25 @@ public class photoDetailController : MonoBehaviour {
 
         phoneNumber.text = "電話番号：" + drone["phone_number"].ToString();
         postCode.text = "所在地：" + drone["address"].ToString();
+
+        string tags = "";
+
+        for(int i = 1; i < 6; i++)
+        {
+            if (drone[("tag" + i.ToString())] == null) continue;
+            string str = (drone[("tag" + i.ToString())].ToString());
+            if (str != null) {
+                Debug.Log(str);
+                if (i != 1) str = "," + str;
+                tags = tags + str;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        tagView.text = "tag:" + tags;
     }
 	
 	// Update is called once per frame
