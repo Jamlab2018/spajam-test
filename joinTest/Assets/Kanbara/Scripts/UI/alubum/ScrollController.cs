@@ -130,7 +130,7 @@ public class ScrollController : MonoBehaviour
             //データベースから取得した情報を、各カラムに保存する。
             //画像エリアの取得
 
-            /*
+            
 
             Image childImageName = item.gameObject.transform.Find("Image").gameObject.GetComponent<Image>();
 
@@ -139,7 +139,7 @@ public class ScrollController : MonoBehaviour
             CaptureView captureView = new CaptureView();
             childImageName.sprite = captureView.GetSprite(dr["image_path"].ToString());
             
-            */
+            
         }
 
         if (listViewNodes.Count != 0)
