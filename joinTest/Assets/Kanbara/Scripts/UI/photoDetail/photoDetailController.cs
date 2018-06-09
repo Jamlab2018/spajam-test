@@ -47,18 +47,20 @@ public class photoDetailController : MonoBehaviour {
             shopName.text = "";
         }
 
-        var myrating = drone["myrating"];
+        float myrating = float.Parse( drone["myrating"].ToString());
 
         string rate;
 
+        rate = drone["rating"].ToString().ToString();
+        Debug.Log(rate); 
+
         //レビュー表記の更新
-        if (myrating != null) {
+        
+        if (myrating != 0　&& myrating > 0) {
             rate = drone["myrating"].ToString();
         }
-        else
-        {
-            rate = drone["rating"].ToString();
-        }
+        
+      
         //星の画像を調整するための値を取得
         float tempReviewNum = float.Parse(rate) / 5.0f;
         reviewStars.fillAmount =  tempReviewNum;
@@ -86,7 +88,7 @@ public class photoDetailController : MonoBehaviour {
 
         for(int i = 1; i < 6; i++)
         {
-            if (drone[("tag" + i.ToString())] == null) continue;
+            if (drone[("tag" + i.ToString())] == null || drone[("tag" + i.ToString())].ToString() == "") continue;
             string str = (drone[("tag" + i.ToString())].ToString());
             if (str != null) {
                 Debug.Log(str);
@@ -95,7 +97,7 @@ public class photoDetailController : MonoBehaviour {
             }
             else
             {
-                break;
+                
             }
         }
 
