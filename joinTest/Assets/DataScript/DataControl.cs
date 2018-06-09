@@ -34,21 +34,45 @@ public class DataControl : MonoBehaviour {
 
         JsonNode jn = jsonDecode(json);
 
-        string query = "INSERT INTO "+ tablename + " VALUES(NULL,";
+		string query = "INSERT INTO " + tablename;
 
-        query +=
-            "'" + jn["result"]["name"].Get<string>() + "'," +
+		/*
+		query +=
+			" VALUES(NULL," +
+			"'" + jn["result"]["name"].Get<string>() + "'," +
 			"'" + jn["result"]["formatted_address"].Get<string>() + "'," +
 			"'" + jn["result"]["formatted_phone_number"].Get<string>() + "'," +
 			"''," +
-            jn["result"]["rating"].Get<double>() + "," +
-            "0" +"," +
+			jn["result"]["rating"].Get<double>() + "," +
+			"0" +"," +
 			"''," +
-			"'" + filepath + "'" +
-            ")";
+			"'" + filepath + "'," +
+			"''," +
+			"''," +
+			"''," +
+			"''," +
+			"''," +
+			"'" + jn["result"]["place_id"].Get<string>() + "'," +
+			")";
+		*/
+		query += " VALUES(NULL," +
+			"''," +
+			"''," +
+			"''," +
+			"''," +
+			"0," +
+			"0," +
+			"''," +
+			"''," +
+			"''," +
+			"''," +
+			"''," +
+			"''," +
+			"''," +
+			"'')";
 		Debug.Log (query);
         // データ追加
-        int result = DBControll.execute(query);
+		int result = DBControll.execute(query);
 
 		return result;
 	}

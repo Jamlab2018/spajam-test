@@ -184,7 +184,7 @@ public class HttpRequestManager : MonoBehaviour
         {
             //通信結果 -> www.text
             Debug.Log(www.text);
-			DataControl.dataInsert(www.text,insertFilePath).ToString();
+			post.text = DataControl.dataInsert(www.text,insertFilePath).ToString();
 
 			// 処理完了の場所を移動
 			ok = true;
