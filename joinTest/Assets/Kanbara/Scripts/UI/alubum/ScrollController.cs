@@ -12,6 +12,12 @@ public class ScrollController : MonoBehaviour
     const int NORMAL_MODE = 0;
     const int DELETE_MODE = 1;
 
+    const int SEARCH_NAME = 0;
+    const int SEARCH_PLACE = 1;
+    const int SEARCH_TAG = 2;
+
+    int searchType = -1;
+
     [SerializeField]
     GameObject scrollView;
     ScrollRect scrollRect;
@@ -29,6 +35,7 @@ public class ScrollController : MonoBehaviour
 
     //データがない時のテキスト
     GameObject noDataText;
+    public GameObject SearchView;
     Text myComment;
 
     List<JsonNode> jsonDataset;
@@ -41,28 +48,40 @@ public class ScrollController : MonoBehaviour
     //スクロールバー
     public GameObject scrollBar;
 
+    //
+    public Text searchText;
+
     void Start()
 
     {
         //初期化
         mode = NORMAL_MODE;
+        searchType = -1;
         listViewNodes = new List<listViewNode>();
         photoButton = GameObject.Find("photoButton");
         deleteButton = GameObject.Find("deleteButton");
         cancelButton = GameObject.Find("cancelButton");
         noDataText = GameObject.Find("noDataDiscription");
         cancelButton.SetActive(false);
+        SearchView.SetActive(false);
 
+        DataTable dt;
 
-        this.updateScrollView();
+        // データを全て取得
+        if (SceneUtility.query == "")
+        {
+            dt = DataControl.getData();
+        }
+        else
+        {
+            dt = DataControl.getData(SceneUtility.query); 
+        }
+
+        this.updateScrollView(dt);
     }
 
-    void updateScrollView()
+    void updateScrollView(DataTable dt)
     {
-       
-        // データを全て取得
-        DataTable dt = DataControl.getData();
-
         foreach (DataRow dr in dt.Rows) {
 
             var item = GameObject.Instantiate(prefab) as RectTransform;
@@ -110,13 +129,16 @@ public class ScrollController : MonoBehaviour
 
             //データベースから取得した情報を、各カラムに保存する。
             //画像エリアの取得
+
+            
+
             Image childImageName = item.gameObject.transform.Find("Image").gameObject.GetComponent<Image>();
 
             Debug.Log(dr["image_path"].ToString());
 
             CaptureView captureView = new CaptureView();
             childImageName.sprite = captureView.GetSprite(dr["image_path"].ToString());
-
+            
 
         }
 
@@ -129,6 +151,45 @@ public class ScrollController : MonoBehaviour
         scrollRect = scrollView.GetComponent<ScrollRect>();
         scrollRect.verticalNormalizedPosition = 1;
 
+    }
+
+    //
+    public void searchName()
+    {
+        searchType = SEARCH_NAME;
+        SearchView.SetActive(true);
+        menuList.SetActive(false);
+    }
+
+    public void searchPLACE()
+    {
+        searchType = SEARCH_PLACE;
+        SearchView.SetActive(true);
+        menuList.SetActive(false);
+    }
+
+
+    public void executeSearch()
+    {
+        //データをいったん削除
+        int count = listViewNodes.Count;
+
+        switch (searchType)
+        {
+
+            case SEARCH_NAME:
+                // データを全て取得
+                SceneUtility.query = "name like '%" + searchText.text + "%'";
+                
+                break;
+            case SEARCH_PLACE:
+                SceneUtility.query = "address like '%" + searchText.text + "%'";
+                break;
+        }
+
+        SceneManager.LoadScene("photoAlubum");
+
+        SearchView.SetActive(false);
     }
 
     //

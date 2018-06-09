@@ -80,7 +80,7 @@ public class HttpRequestManager : MonoBehaviour
         WWW www = new WWW(url, form);
 
         post = text.GetComponent<Text>();
-        post.text = "x:" + gps_x.ToString() + ":y=" + gps_y.ToString();
+        //post.text = "x:" + gps_x.ToString() + ":y=" + gps_y.ToString();
 
         StartCoroutine("WaitForRequest", www);
     }
@@ -113,13 +113,13 @@ public class HttpRequestManager : MonoBehaviour
         {
             //エラー内容 -> www.error
             Debug.Log(www.error);
-            posttext.text = "エラー"+www.error.ToString();
+            //posttext.text = "エラー"+www.error.ToString();
         }
         else
         {
             //通信結果 -> www.text
             Debug.Log(www.text);
-            posttext.text = www.text.ToString();
+            //posttext.text = www.text.ToString();
 
 			JsonNode jn = DataControl.jsonDecode (www.text);
 			if (!jn ["status"].Get<string>().Equals ("ZERO_RESULTS")) {
