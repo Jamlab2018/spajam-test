@@ -47,25 +47,35 @@ public class photoDetailController : MonoBehaviour {
             shopName.text = "";
         }
 
-        float myrating = float.Parse( drone["myrating"].ToString());
+        float myrating = 0;
+        if (drone["myrating"] != null)
+        {
+            myrating = float.Parse(drone["myrating"].ToString());
+        }
+        string rate = "0";
 
-        string rate;
-
-        rate = drone["rating"].ToString().ToString();
-        Debug.Log(rate); 
+        //rate = drone["rating"].ToString().ToString();
+        //Debug.Log(rate); 
 
         //レビュー表記の更新
         
         if (myrating != 0　&& myrating > 0) {
-            rate = drone["myrating"].ToString();
+            if (drone["myrating"] != null)
+            {
+                rate = drone["myrating"].ToString();
+            }
         }
-        
-      
+
+
         //星の画像を調整するための値を取得
-        float tempReviewNum = float.Parse(rate) / 5.0f;
-        reviewStars.fillAmount =  tempReviewNum;
+        float tempReviewNum = 0;
+
+        if (rate != "0") {
+            tempReviewNum = float.Parse(rate) / 5.0f;
+        }
+        //reviewStars.fillAmount =  tempReviewNum;
         myReviewStars.fillAmount = tempReviewNum;
-        reviewNumber.text = rate;
+        //reviewNumber.text = rate;
 
         //使用者がコメントした内容を表示
         myComment.text = drone["mycomment"].ToString();

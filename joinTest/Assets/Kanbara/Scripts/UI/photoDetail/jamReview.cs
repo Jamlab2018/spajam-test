@@ -52,14 +52,15 @@ public class jamReview : MonoBehaviour {
     {
         string[] tagPart = comment.text.Split('#');
 
+
         string query = "update jtable set myrating =" + rateNum.ToString() + ", mycomment = '" + tagPart[0] + "' where id = " + SceneUtility.photoid.ToString(); 
         DBControll.execute(query);
 
         float tempRateNum = rateNum / 5.0f;
 
         //詳細画面の評価も変更する
-        controller.reviewStars.fillAmount = tempRateNum;
-        controller.reviewNumber.text = rateNum.ToString();
+        //controller.reviewStars.fillAmount = tempRateNum;
+        //controller.reviewNumber.text = rateNum.ToString();
 
         controller.myReviewStars.fillAmount = tempRateNum;
 
