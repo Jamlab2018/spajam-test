@@ -114,6 +114,7 @@ public class HttpRequestManager : MonoBehaviour
             //エラー内容 -> www.error
             Debug.Log(www.error);
             //posttext.text = "エラー"+www.error.ToString();
+			SceneManager.LoadScene("main");
         }
         else
         {
@@ -127,14 +128,15 @@ public class HttpRequestManager : MonoBehaviour
 				placeStart (jn ["results"] [0] ["place_id"].Get<string> ());
 			}
 
-            if (jn["status"].Get<string>().Equals("ZERO_RESULTS"))
+            else
             {
+				post.text = "リザルトエラー";
                 SceneManager.LoadScene("main");
             }
 
                 // 処理完了の場所を移動
                 //ok = true;
-            }
+        }
     }
 
 	//------------------------------------------------
@@ -179,6 +181,7 @@ public class HttpRequestManager : MonoBehaviour
         {
             //エラー内容 -> www.error
             Debug.Log(www.error);
+			SceneManager.LoadScene("main");
         }
         else
         {
