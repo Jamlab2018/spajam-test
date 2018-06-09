@@ -56,20 +56,21 @@ public class DataControl : MonoBehaviour {
 			")";
 		*/
 		query += " VALUES(NULL," +
+			"'" + jn["result"]["name"].Get<string>() + "'," +
+			"'" + jn["result"]["formatted_address"].Get<string>() + "'," +
+			"'" + jn["result"]["formatted_phone_number"].Get<string>() + "'," +
 			"''," +
-			"''," +
-			"''," +
-			"''," +
+			jn["result"]["rating"].Get<double>() + "," +
 			"0," +
-			"0," +
+			"''," +
+			"'" + filepath + "'," +
 			"''," +
 			"''," +
 			"''," +
 			"''," +
 			"''," +
-			"''," +
-			"''," +
-			"'')";
+			"'" + jn["result"]["place_id"].Get<string>() + "'" +
+			")";
 		Debug.Log (query);
         // データ追加
 		int result = DBControll.execute(query);
