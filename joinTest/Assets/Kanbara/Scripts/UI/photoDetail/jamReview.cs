@@ -50,7 +50,9 @@ public class jamReview : MonoBehaviour {
 
     public void pushDecideButton()
     {
-        string query = "update jtable set myrating =" + rateNum.ToString() + ", mycomment = '" + comment.text + "' where id = " + SceneUtility.photoid.ToString(); 
+        string[] tagPart = comment.text.Split('#');
+
+        string query = "update jtable set myrating =" + rateNum.ToString() + ", mycomment = '" + tagPart[0] + "' where id = " + SceneUtility.photoid.ToString(); 
         DBControll.execute(query);
 
         float tempRateNum = rateNum / 5.0f;
@@ -60,7 +62,28 @@ public class jamReview : MonoBehaviour {
         controller.reviewNumber.text = rateNum.ToString();
 
         controller.myReviewStars.fillAmount = tempRateNum;
-        controller.myComment.text = comment.text;
+
+
+
+
+        controller.myComment.text = tagPart[0];
+
+
+        //Debug.Log(tagPart[1]);
+
+        if (tagPart.Length != 1)
+        {
+            string[] tag = tagPart[1].Split(',');
+            for (int i = 0; i < tag.Length; i++)
+            {
+                Debug.Log(tag[i]);
+                string tagquery = "update jtable set tag" + (i + 1).ToString() + " = '" + tag[i].ToString() +
+                    "' where id = " + SceneUtility.photoid.ToString();
+                DBControll.execute(tagquery);
+            }
+        }
+
+   
 
         reviewView.SetActive(false);
 

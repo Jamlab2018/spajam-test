@@ -130,7 +130,7 @@ public class ScrollController : MonoBehaviour
             //データベースから取得した情報を、各カラムに保存する。
             //画像エリアの取得
 
-            
+            /*
 
             Image childImageName = item.gameObject.transform.Find("Image").gameObject.GetComponent<Image>();
 
@@ -139,7 +139,7 @@ public class ScrollController : MonoBehaviour
             CaptureView captureView = new CaptureView();
             childImageName.sprite = captureView.GetSprite(dr["image_path"].ToString());
             
-
+            */
         }
 
         if (listViewNodes.Count != 0)
@@ -169,6 +169,13 @@ public class ScrollController : MonoBehaviour
     }
 
 
+    public void searchTAG()
+    {
+        searchType = SEARCH_TAG;
+        SearchView.SetActive(true);
+        menuList.SetActive(false);
+    }
+
     public void executeSearch()
     {
         //データをいったん削除
@@ -184,6 +191,11 @@ public class ScrollController : MonoBehaviour
                 break;
             case SEARCH_PLACE:
                 SceneUtility.query = "address like '%" + searchText.text + "%'";
+                break;
+            case SEARCH_TAG:
+                string str = "'%" + searchText.text + "%'";
+                SceneUtility.query = "tag1 like " + str + " or tag2 like " + str + " or tag3 like " +
+                    str + " or tag4 like " + str + " or tag5 like " + str;
                 break;
         }
 
