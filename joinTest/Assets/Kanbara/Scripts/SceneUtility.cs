@@ -7,6 +7,7 @@ public class SceneUtility : MonoBehaviour {
 
    public static string beforeScene;
    public static int photoid;
+    public static string query = "";
 
     //シーンを遷移する。
     public static void moveScene(string beforeScene, string afterScene,int photoid)
@@ -20,5 +21,10 @@ public class SceneUtility : MonoBehaviour {
     public void backScene()
     {
         SceneManager.LoadScene(SceneUtility.beforeScene);
+    }
+
+    public void setQuery(string query)
+    {
+        SceneUtility.query = query;
     }
 }
