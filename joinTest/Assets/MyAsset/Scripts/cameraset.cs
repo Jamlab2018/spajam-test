@@ -53,7 +53,7 @@ public class cameraset : MonoBehaviour
             Prog.SetActive(true);
             time = 360 * Time.deltaTime;
 
-            progtransform.Rotate(new Vector3(0.0f, 0.0f, time));
+            progtransform.Rotate(new Vector3(0.0f, 0.0f, -time));
 
         }
     }
