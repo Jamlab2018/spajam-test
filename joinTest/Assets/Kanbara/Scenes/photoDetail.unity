@@ -470,6 +470,7 @@ GameObject:
   m_Component:
   - component: {fileID: 100569092}
   - component: {fileID: 100569091}
+  - component: {fileID: 100569093}
   m_Layer: 0
   m_Name: SceneUtility
   m_TagString: Untagged
@@ -501,6 +502,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &100569093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 100569090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24adbd8c16e675f4694c12fd26fd486d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &256566813
 GameObject:
   m_ObjectHideFlags: 0
@@ -3204,8 +3216,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1764555156}
-        m_MethodName: popupReview
+      - m_Target: {fileID: 100569093}
+        m_MethodName: Share
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
