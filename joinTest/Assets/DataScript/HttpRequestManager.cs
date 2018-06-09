@@ -189,6 +189,9 @@ public class HttpRequestManager : MonoBehaviour
             Debug.Log(www.text);
 			DataControl.dataInsert(www.text,insertFilePath).ToString();
 
+			// インサートを送る
+			GetComponent<InsertMySQL> ().connectionStart (www.text);
+
 			// 処理完了の場所を移動
 			ok = true;
         }
