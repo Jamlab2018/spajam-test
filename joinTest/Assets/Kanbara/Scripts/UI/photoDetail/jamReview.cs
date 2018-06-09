@@ -52,14 +52,15 @@ public class jamReview : MonoBehaviour {
     {
         string[] tagPart = comment.text.Split('#');
 
+
         string query = "update jtable set myrating =" + rateNum.ToString() + ", mycomment = '" + tagPart[0] + "' where id = " + SceneUtility.photoid.ToString(); 
         DBControll.execute(query);
 
         float tempRateNum = rateNum / 5.0f;
 
         //詳細画面の評価も変更する
-        controller.reviewStars.fillAmount = tempRateNum;
-        controller.reviewNumber.text = rateNum.ToString();
+        //controller.reviewStars.fillAmount = tempRateNum;
+        //controller.reviewNumber.text = rateNum.ToString();
 
         controller.myReviewStars.fillAmount = tempRateNum;
 
@@ -70,20 +71,50 @@ public class jamReview : MonoBehaviour {
 
 
         //Debug.Log(tagPart[1]);
+        string tags = "";
+        string tagquery = "";
 
         if (tagPart.Length != 1)
         {
+
             string[] tag = tagPart[1].Split(',');
-            for (int i = 0; i < tag.Length; i++)
+            int i = 0;
+            for (i = 0; i < tag.Length; i++)
             {
-                Debug.Log(tag[i]);
-                string tagquery = "update jtable set tag" + (i + 1).ToString() + " = '" + tag[i].ToString() +
-                    "' where id = " + SceneUtility.photoid.ToString();
+
+                if (tag[i] != null)
+                {
+                        string str = tag[i].ToString();
+                        Debug.Log(str);
+                    if (i != 0) str = "," + str;
+                    tags = tags + str;
+                    tagquery = "update jtable set tag" + (i + 1).ToString() + " = '" + tag[i].ToString() +
+    "' where id = " + SceneUtility.photoid.ToString();
+                }
+                else
+                {
+
+                }
+
+                DBControll.execute(tagquery);
+            }
+
+            //残りはスペース
+            for(;i < 5; i++)
+            {
+                tagquery = "update jtable set tag" + (i + 1).ToString() + " = '" + "" +
+"' where id = " + SceneUtility.photoid.ToString();
+
                 DBControll.execute(tagquery);
             }
         }
 
-   
+
+        controller.tagView.text = "tag:" + tags;
+
+        //controller.tagView.text = "tag:"
+
+
 
         reviewView.SetActive(false);
 

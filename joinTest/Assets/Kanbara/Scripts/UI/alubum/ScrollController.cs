@@ -117,10 +117,14 @@ public class ScrollController : MonoBehaviour
             //評価の星を取得
             string rate = dr["myrating"].ToString();
 
-            if (rate == "")
+            /*
+            if (float.Parse(rate) == 0)
             {
                 rate = dr["rating"].ToString();
             }
+
+            */
+
             ratingStar.fillAmount = float.Parse(rate) / 5.0f;
 
 

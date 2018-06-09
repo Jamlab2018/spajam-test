@@ -47,23 +47,35 @@ public class photoDetailController : MonoBehaviour {
             shopName.text = "";
         }
 
-        var myrating = drone["myrating"];
+        float myrating = 0;
+        if (drone["myrating"] != null)
+        {
+            myrating = float.Parse(drone["myrating"].ToString());
+        }
+        string rate = "0";
 
-        string rate;
+        //rate = drone["rating"].ToString().ToString();
+        //Debug.Log(rate); 
 
         //レビュー表記の更新
-        if (myrating != null) {
-            rate = drone["myrating"].ToString();
+        
+        if (myrating != 0　&& myrating > 0) {
+            if (drone["myrating"] != null)
+            {
+                rate = drone["myrating"].ToString();
+            }
         }
-        else
-        {
-            rate = drone["rating"].ToString();
-        }
+
+
         //星の画像を調整するための値を取得
-        float tempReviewNum = float.Parse(rate) / 5.0f;
-        reviewStars.fillAmount =  tempReviewNum;
+        float tempReviewNum = 0;
+
+        if (rate != "0") {
+            tempReviewNum = float.Parse(rate) / 5.0f;
+        }
+        //reviewStars.fillAmount =  tempReviewNum;
         myReviewStars.fillAmount = tempReviewNum;
-        reviewNumber.text = rate;
+        //reviewNumber.text = rate;
 
         //使用者がコメントした内容を表示
         myComment.text = drone["mycomment"].ToString();
@@ -86,7 +98,7 @@ public class photoDetailController : MonoBehaviour {
 
         for(int i = 1; i < 6; i++)
         {
-            if (drone[("tag" + i.ToString())] == null) continue;
+            if (drone[("tag" + i.ToString())] == null || drone[("tag" + i.ToString())].ToString() == "") continue;
             string str = (drone[("tag" + i.ToString())].ToString());
             if (str != null) {
                 Debug.Log(str);
@@ -95,7 +107,7 @@ public class photoDetailController : MonoBehaviour {
             }
             else
             {
-                break;
+                
             }
         }
 
