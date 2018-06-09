@@ -318,15 +318,15 @@ RectTransform:
   m_GameObject: {fileID: 636300604}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.408822, y: 1.408822, z: 1.408822}
   m_Children: []
   m_Father: {fileID: 2080804430}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -200, y: -400}
-  m_SizeDelta: {x: 150, y: 150}
+  m_AnchoredPosition: {x: -91, y: -190}
+  m_SizeDelta: {x: 34.14, y: 34.14}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &636300606
 MonoBehaviour:
@@ -553,15 +553,15 @@ RectTransform:
   m_GameObject: {fileID: 911463119}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.408822, y: 1.408822, z: 1.408822}
   m_Children: []
   m_Father: {fileID: 2080804430}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 200, y: -400}
-  m_SizeDelta: {x: 150, y: 150}
+  m_AnchoredPosition: {x: 90, y: -190}
+  m_SizeDelta: {x: 34.14, y: 34.14}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &911463121
 MonoBehaviour:
@@ -668,6 +668,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1039710911}
   - component: {fileID: 1039710910}
+  - component: {fileID: 1039710912}
   m_Layer: 0
   m_Name: Post
   m_TagString: Untagged
@@ -700,6 +701,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1039710912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1039710909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cd452ddd134b354ab133f5e4d3b3dac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1059553679
 GameObject:
   m_ObjectHideFlags: 0
@@ -1037,7 +1049,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ReferenceResolution: {x: 320, y: 480}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3

@@ -9,10 +9,7 @@ public class SceneUtility : MonoBehaviour {
    public static int photoid;
     public static string query = "";
 
-    private void Start()
-    {
-        ApplicationChrome.statusBarState = ApplicationChrome.States.Visible;
-    }
+
     //シーンを遷移する。
     public static void moveScene(string beforeScene, string afterScene,int photoid)
     {

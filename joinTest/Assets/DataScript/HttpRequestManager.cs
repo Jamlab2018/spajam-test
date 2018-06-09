@@ -15,6 +15,9 @@ public class HttpRequestManager : MonoBehaviour
 	string url = "http://nippo.oilstand.net/test/res.php"; // URL
 	string insertFilePath ="";
 
+	float insgps_x = 0.0f;
+	float insgps_y = 0.0f;
+
     ///データを取ったらロード(Updateでやっちゃうけどいい方法ないかね)
     ///
     void Update()
@@ -81,6 +84,8 @@ public class HttpRequestManager : MonoBehaviour
 
         post = text.GetComponent<Text>();
         //post.text = "x:" + gps_x.ToString() + ":y=" + gps_y.ToString();
+		insgps_x = gps_x;
+		insgps_y = gps_y;
 
         StartCoroutine("WaitForRequest", www);
     }
@@ -114,6 +119,7 @@ public class HttpRequestManager : MonoBehaviour
             //エラー内容 -> www.error
             Debug.Log(www.error);
             //posttext.text = "エラー"+www.error.ToString();
+			SceneManager.LoadScene("main");
         }
         else
         {
@@ -127,14 +133,15 @@ public class HttpRequestManager : MonoBehaviour
 				placeStart (jn ["results"] [0] ["place_id"].Get<string> ());
 			}
 
-            if (jn["status"].Get<string>().Equals("ZERO_RESULTS"))
+            else
             {
+				post.text = "リザルトエラー";
                 SceneManager.LoadScene("main");
             }
 
                 // 処理完了の場所を移動
                 //ok = true;
-            }
+        }
     }
 
 	//------------------------------------------------
@@ -179,12 +186,16 @@ public class HttpRequestManager : MonoBehaviour
         {
             //エラー内容 -> www.error
             Debug.Log(www.error);
+			SceneManager.LoadScene("main");
         }
         else
         {
             //通信結果 -> www.text
             Debug.Log(www.text);
 			DataControl.dataInsert(www.text,insertFilePath).ToString();
+
+			// インサートを送る
+			GetComponent<InsertMySQL> ().connectionStart (www.text, insgps_x,insgps_y);
 
 			// 処理完了の場所を移動
 			ok = true;

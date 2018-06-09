@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,7 +19,6 @@ public class DBControll : MonoBehaviour {
     {
         try
         {
-            Debug.Log(query);
             sqlDB.ExecuteNonQuery(query);
             Debug.Log("complete : " + query);
             return 1;

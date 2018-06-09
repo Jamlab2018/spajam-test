@@ -11,8 +11,4 @@ public class TitleScene : MonoBehaviour
     {
         SceneManager.LoadScene("photoAlubum");
     }
-    private void Start()
-    {
-        ApplicationChrome.statusBarState = ApplicationChrome.States.Visible;
-    }
 }

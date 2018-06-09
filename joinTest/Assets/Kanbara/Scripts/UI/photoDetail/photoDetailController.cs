@@ -15,6 +15,7 @@ public class photoDetailController : MonoBehaviour {
     public Image reviewStars;
     public Image myReviewStars;
     public Text myComment;
+    public Text tagView;
 
     public Text phoneNumber;
     public Text postCode;
@@ -26,15 +27,36 @@ public class photoDetailController : MonoBehaviour {
         // データを条件指定して1件取得
         DataRow drone = DataControl.getOneData("id=" + SceneUtility.photoid.ToString());
 
-        CaptureView captureView = new CaptureView();
-        photoPicture.sprite = captureView.GetSprite(drone["image_path"].ToString());
+        var imagePath = drone["image_path"];
+
+        if(imagePath != null)
+        {
+            CaptureView captureView = new CaptureView();
+            photoPicture.sprite = captureView.GetSprite(drone["image_path"].ToString());
+
+        }
+
 
         //店舗名の更新
-        shopName.text = drone["name"].ToString();
+        var name = drone["name"];
+        if (name != null) { 
+            shopName.text = drone["name"].ToString();
+        }
+        else
+        {
+            shopName.text = "";
+        }
+
+        var myrating = drone["myrating"];
+
+        string rate;
 
         //レビュー表記の更新
-        string rate = drone["myrating"].ToString();
-        if (rate == "") {
+        if (myrating != null) {
+            rate = drone["myrating"].ToString();
+        }
+        else
+        {
             rate = drone["rating"].ToString();
         }
         //星の画像を調整するための値を取得
@@ -48,8 +70,36 @@ public class photoDetailController : MonoBehaviour {
 
         if (myComment.text == "") myCommentView.SetActive(false);
 
-        phoneNumber.text = "電話番号：" + drone["phone_number"].ToString();
-        postCode.text = "所在地：" + drone["address"].ToString();
+        if (drone["phone_number"] != null) 
+        {
+            phoneNumber.text = "電話番号：" + drone["phone_number"].ToString();
+        }
+
+
+        if (drone["address"] != null)
+        {
+            postCode.text = "所在地：" + drone["address"].ToString();
+        }
+        
+
+        string tags = "";
+
+        for(int i = 1; i < 6; i++)
+        {
+            if (drone[("tag" + i.ToString())] == null) continue;
+            string str = (drone[("tag" + i.ToString())].ToString());
+            if (str != null) {
+                Debug.Log(str);
+                if (i != 1) str = "," + str;
+                tags = tags + str;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        tagView.text = "tag:" + tags;
     }
 	
 	// Update is called once per frame

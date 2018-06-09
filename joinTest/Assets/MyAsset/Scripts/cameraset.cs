@@ -24,7 +24,6 @@ public class cameraset : MonoBehaviour
     GameObject place;
     void Start()
     {
-        ApplicationChrome.statusBarState = ApplicationChrome.States.Hidden;
         Prog.SetActive(false);
         once = true;
         progress = false;

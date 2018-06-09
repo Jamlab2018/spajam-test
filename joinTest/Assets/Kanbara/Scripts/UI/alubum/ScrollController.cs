@@ -32,6 +32,7 @@ public class ScrollController : MonoBehaviour
     GameObject photoButton;
     GameObject deleteButton;
     GameObject cancelButton;
+	GameObject mapButton;
 
     //データがない時のテキスト
     GameObject noDataText;
@@ -61,6 +62,7 @@ public class ScrollController : MonoBehaviour
         photoButton = GameObject.Find("photoButton");
         deleteButton = GameObject.Find("deleteButton");
         cancelButton = GameObject.Find("cancelButton");
+		mapButton = GameObject.Find("mapButton");
         noDataText = GameObject.Find("noDataDiscription");
         cancelButton.SetActive(false);
         SearchView.SetActive(false);
@@ -134,12 +136,19 @@ public class ScrollController : MonoBehaviour
 
             Image childImageName = item.gameObject.transform.Find("Image").gameObject.GetComponent<Image>();
 
-            Debug.Log(dr["image_path"].ToString());
+            var imagePath = dr["image_path"];
 
-            CaptureView captureView = new CaptureView();
-            childImageName.sprite = captureView.GetSprite(dr["image_path"].ToString());
+            if (imagePath != null)
+            {
+                Debug.Log(dr["image_path"].ToString());
+
+                CaptureView captureView = new CaptureView();
+                childImageName.sprite = captureView.GetSprite(dr["image_path"].ToString());
+            }
+
+
             
-
+            
         }
 
         if (listViewNodes.Count != 0)
@@ -169,6 +178,13 @@ public class ScrollController : MonoBehaviour
     }
 
 
+    public void searchTAG()
+    {
+        searchType = SEARCH_TAG;
+        SearchView.SetActive(true);
+        menuList.SetActive(false);
+    }
+
     public void executeSearch()
     {
         //データをいったん削除
@@ -184,6 +200,11 @@ public class ScrollController : MonoBehaviour
                 break;
             case SEARCH_PLACE:
                 SceneUtility.query = "address like '%" + searchText.text + "%'";
+                break;
+            case SEARCH_TAG:
+                string str = "'%" + searchText.text + "%'";
+                SceneUtility.query = "tag1 like " + str + " or tag2 like " + str + " or tag3 like " +
+                    str + " or tag4 like " + str + " or tag5 like " + str;
                 break;
         }
 
@@ -206,7 +227,8 @@ public class ScrollController : MonoBehaviour
     {
         this.mode = DELETE_MODE;
         photoButton.SetActive(false);
-        cancelButton.SetActive(true);
+		cancelButton.SetActive(true);
+		mapButton.SetActive(false);
         menuList.SetActive(false);
     }
 
@@ -215,6 +237,7 @@ public class ScrollController : MonoBehaviour
         this.mode = NORMAL_MODE;
         photoButton.SetActive(true);
         cancelButton.SetActive(false);
+		mapButton.SetActive(true);
     }
 
     //データのデリート処理を行う
@@ -251,6 +274,7 @@ public class ScrollController : MonoBehaviour
         //終了処理
         photoButton.SetActive(true);
         cancelButton.SetActive(false);
+		mapButton.SetActive(true);
         this.mode = NORMAL_MODE;
 
     }
@@ -302,4 +326,9 @@ public class ScrollController : MonoBehaviour
         //他シーンに遷移する処理を作成する
     }
 
+	// ヒートマップに遷移
+	public void moveMapPage()
+	{
+		Application.OpenURL ("http://nippo.oilstand.net/test/map.php");
+	}
 }
