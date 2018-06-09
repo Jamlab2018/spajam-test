@@ -14,14 +14,22 @@ public class cameraset : MonoBehaviour
 
     public GameObject back;
     public GameObject shot;
+    public GameObject Prog;
     bool once = true;
+    Transform progtransform;
+    float time = 0;
+    bool progress;                  //プログレスダイアログ表示
     WebCamTexture webcamTexture;
     public Material material;
     GameObject place;
     void Start()
     {
+        Prog.SetActive(false);
         once = true;
+        progress = false;
         create = false;
+        time = 0;
+        progtransform = Prog.transform;
         WebCamDevice[] devices = WebCamTexture.devices;
         // display all cameras
         for (var i = 0; i < devices.Length; i++)
@@ -38,7 +46,17 @@ public class cameraset : MonoBehaviour
 
         }
     }
+    private void Update()
+    {
+        if (progress == true)
+        {
+            Prog.SetActive(true);
+            time = 360 * Time.deltaTime;
 
+            progtransform.Rotate(new Vector3(0.0f, 0.0f, time));
+
+        }
+    }
     public void OnCapture()
     {
         if (once == true)
@@ -63,6 +81,7 @@ public class cameraset : MonoBehaviour
         string imagePath = Path.Combine(Application.persistentDataPath, imageName);
         if (File.Exists(imagePath))
         {
+            progress = true;
             create = true;
             Debug.Log("撮影完了");
         }
@@ -70,10 +89,11 @@ public class cameraset : MonoBehaviour
         if (create == false)
         {
             once = true;//もう一度撮影できるように
+            progress = false;
+            Prog.SetActive(false);
+            shot.SetActive(true);
+            back.SetActive(true);
         }
-        shot.SetActive(true);
-        back.SetActive(true);
- 
         // SceneManager.LoadScene("photo");
 
     }

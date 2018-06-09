@@ -3,23 +3,40 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System.IO;
+using UnityEngine.SceneManagement;
 
 public class HttpRequestManager : MonoBehaviour
 {
     public GameObject text;
 
 	Text post; // 
+    bool ok;
 	string url = "http://nippo.oilstand.net/test/res.php"; // URL
+	string insertFilePath ="";
 
-	//------------------------------------------------
-	/// <summary>
-	/// VisionAPI処理開始
-	/// </summary>
-	/// <param name="x">The x coordinate.</param>
-	/// <param name="y">The y coordinate.</param>
-	//------------------------------------------------
-	public void Post(float x,float y)
+    ///データを取ったらロード(Updateでやっちゃうけどいい方法ないかね)
+    ///
+    void Update()
     {
+        if (ok==true)
+        {
+            //SceneManager.LoadScene("photoDetail");
+			SceneUtility.moveScene ("main", "photoDetail", DataControl.getMaxId());
+        }
+
+    }
+
+    //------------------------------------------------
+    /// <summary>
+    /// VisionAPI処理開始
+    /// </summary>
+    /// <param name="x">The x coordinate.</param>
+    /// <param name="y">The y coordinate.</param>
+    //------------------------------------------------
+    public void Post(float x,float y)
+    {
+        ok = false;
         connectionStart(x,y);// GET
     }
 
@@ -32,12 +49,15 @@ public class HttpRequestManager : MonoBehaviour
 	//------------------------------------------------
     public void connectionStart(float gps_x,float gps_y)
     {
-        string date = DateTime.Now.ToString("yyyyMMddhhmm");
-        string fileName = date+".jpg";
+        string date = DateTime.Now.ToString("yyyyMMddHHmm");
+        string fileName = date + ".jpg";
         string filePath = Application.dataPath + "/" + fileName;
+        string image_path = "/photo/" + date + ".jpg";
+        //insertFilePath = Path.Combine(Application.persistentDataPath, image_path); ;
+        insertFilePath = Application.persistentDataPath + image_path;
 
 #if !UNITY_EDITOR && (UNITY_IOS || UNITY_ANDROID)
-        filePath = Application.persistentDataPath+"/photo/" + fileName;
+        filePath = Application.persistentDataPath +"/photo/" + fileName;
 #endif
 
         Debug.Log("x"+gps_x+"\n");
@@ -106,6 +126,9 @@ public class HttpRequestManager : MonoBehaviour
 				//place
 				placeStart (jn ["results"] [0] ["place_id"].Get<string> ());
 			}
+
+			// 処理完了の場所を移動
+            //ok = true;
         }
     }
 
@@ -156,8 +179,10 @@ public class HttpRequestManager : MonoBehaviour
         {
             //通信結果 -> www.text
             Debug.Log(www.text);
-			DataControl.dataInsert(www.text);
+			DataControl.dataInsert(www.text,insertFilePath).ToString();
 
+			// 処理完了の場所を移動
+			ok = true;
         }
     }
 
