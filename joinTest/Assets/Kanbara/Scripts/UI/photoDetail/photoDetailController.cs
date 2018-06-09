@@ -38,11 +38,25 @@ public class photoDetailController : MonoBehaviour {
 
 
         //店舗名の更新
-        shopName.text = drone["name"].ToString();
+        var name = drone["name"];
+        if (name != null) { 
+            shopName.text = drone["name"].ToString();
+        }
+        else
+        {
+            shopName.text = "";
+        }
+
+        var myrating = drone["myrating"];
+
+        string rate;
 
         //レビュー表記の更新
-        string rate = drone["myrating"].ToString();
-        if (rate == "") {
+        if (myrating != null) {
+            rate = drone["myrating"].ToString();
+        }
+        else
+        {
             rate = drone["rating"].ToString();
         }
         //星の画像を調整するための値を取得
@@ -56,8 +70,17 @@ public class photoDetailController : MonoBehaviour {
 
         if (myComment.text == "") myCommentView.SetActive(false);
 
-        phoneNumber.text = "電話番号：" + drone["phone_number"].ToString();
-        postCode.text = "所在地：" + drone["address"].ToString();
+        if (drone["phone_number"] != null) 
+        {
+            phoneNumber.text = "電話番号：" + drone["phone_number"].ToString();
+        }
+
+
+        if (drone["address"] != null)
+        {
+            postCode.text = "所在地：" + drone["address"].ToString();
+        }
+        
 
         string tags = "";
 
