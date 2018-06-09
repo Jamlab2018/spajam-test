@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/MyAsset/Scenes/Title.unity
+    guid: af6ac987dd429784498b31613bc21db5
+  - enabled: 1
     path: Assets/Kanbara/Scenes/photoAlubum.unity
     guid: 0842daa4ecf496b40811ff3a5dd753e1
   - enabled: 1
