@@ -32,6 +32,7 @@ public class ScrollController : MonoBehaviour
     GameObject photoButton;
     GameObject deleteButton;
     GameObject cancelButton;
+	GameObject mapButton;
 
     //データがない時のテキスト
     GameObject noDataText;
@@ -61,6 +62,7 @@ public class ScrollController : MonoBehaviour
         photoButton = GameObject.Find("photoButton");
         deleteButton = GameObject.Find("deleteButton");
         cancelButton = GameObject.Find("cancelButton");
+		mapButton = GameObject.Find("mapButton");
         noDataText = GameObject.Find("noDataDiscription");
         cancelButton.SetActive(false);
         SearchView.SetActive(false);
@@ -225,7 +227,8 @@ public class ScrollController : MonoBehaviour
     {
         this.mode = DELETE_MODE;
         photoButton.SetActive(false);
-        cancelButton.SetActive(true);
+		cancelButton.SetActive(true);
+		mapButton.SetActive(false);
         menuList.SetActive(false);
     }
 
@@ -234,6 +237,7 @@ public class ScrollController : MonoBehaviour
         this.mode = NORMAL_MODE;
         photoButton.SetActive(true);
         cancelButton.SetActive(false);
+		mapButton.SetActive(true);
     }
 
     //データのデリート処理を行う
@@ -270,6 +274,7 @@ public class ScrollController : MonoBehaviour
         //終了処理
         photoButton.SetActive(true);
         cancelButton.SetActive(false);
+		mapButton.SetActive(true);
         this.mode = NORMAL_MODE;
 
     }
@@ -321,4 +326,9 @@ public class ScrollController : MonoBehaviour
         //他シーンに遷移する処理を作成する
     }
 
+	// ヒートマップに遷移
+	public void moveMapPage()
+	{
+		Application.OpenURL ("http://nippo.oilstand.net/test/map.php");
+	}
 }
