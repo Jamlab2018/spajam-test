@@ -134,10 +134,17 @@ public class ScrollController : MonoBehaviour
 
             Image childImageName = item.gameObject.transform.Find("Image").gameObject.GetComponent<Image>();
 
-            Debug.Log(dr["image_path"].ToString());
+            var imagePath = dr["image_path"];
 
-            CaptureView captureView = new CaptureView();
-            childImageName.sprite = captureView.GetSprite(dr["image_path"].ToString());
+            if (imagePath != null)
+            {
+                Debug.Log(dr["image_path"].ToString());
+
+                CaptureView captureView = new CaptureView();
+                childImageName.sprite = captureView.GetSprite(dr["image_path"].ToString());
+            }
+
+
             
             
         }
