@@ -127,9 +127,14 @@ public class HttpRequestManager : MonoBehaviour
 				placeStart (jn ["results"] [0] ["place_id"].Get<string> ());
 			}
 
-			// 処理完了の場所を移動
-            //ok = true;
-        }
+            if (jn["status"].Get<string>().Equals("ZERO_RESULTS"))
+            {
+                SceneManager.LoadScene("main");
+            }
+
+                // 処理完了の場所を移動
+                //ok = true;
+            }
     }
 
 	//------------------------------------------------
